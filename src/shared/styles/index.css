@@ -1,0 +1,151 @@
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: #F0F0F0;
+}
+
+html,
+body,
+#__next,
+.container {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+
+    font-family: "Roboto";
+}
+
+.container {
+    width: 1100px;
+    padding: 0 5px;
+
+    margin: 0 auto;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+/*  */
+
+.card-standard {
+    background-color: white;
+    background: #FFFFFF;
+
+    border-radius: 8px;
+
+    min-width: 250px;
+    min-height: 400px;
+
+    width: 250px;
+
+    padding: 19px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card__image img {
+    width: 112px;
+    height: 130px;
+
+    margin-bottom: 7px;
+}
+
+.card__title {
+    font-family: 'PT Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+
+    margin-bottom: 12px;
+}
+
+.card__row {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 12px;
+}
+.card__row:last-child {
+    margin-bottom: 0;
+}
+
+.card__price {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 136.69%;
+    color: #000000;
+}
+
+.card__action {
+    display: flex;
+}
+
+.card__action>* {
+    margin-right: 7px;
+}
+
+.card__action>*:last-child {
+    margin-right: 0;
+}
+
+/* CART BUTTON */
+.cart-buton {
+    width: 35px;
+    height: 35px;
+
+    background-color: #F6F6F6;
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stars>* {
+    margin-right: 4px;
+}
+
+.stars>*:last-child {
+    margin-right: 0px;
+}
+
+.card__ratings {
+    font-family: 'PT Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 136.69%;
+}
+
+.card__available {
+    width: 100%;
+    font-family: 'PT Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 136.69%;
+
+    color: #000000;
+}
+
+.card__available span {
+    color: #2805FF;
+}
