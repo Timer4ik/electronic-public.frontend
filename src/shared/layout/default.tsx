@@ -4,7 +4,7 @@ type Props = {
   children?: React.ReactElement | React.ReactElement[]
 }
 
-const Home: FC<Props> = ({
+const DefaultLayout: FC<Props> = ({
   children,
 }) => {
 
@@ -16,4 +16,4 @@ const Home: FC<Props> = ({
   )
 }
 
-export default Home
+export default DefaultLayout
