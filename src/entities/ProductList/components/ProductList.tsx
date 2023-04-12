@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from "react"
 import { Product } from "../../../shared/types"
 import { useProducts } from "../hooks/useApi"
-import Card from "@/shared/ui/Card"
+import Card from "@/shared/ui/ProductCard"
 import CartButton from "@/shared/ui/CartButton"
 
 type Props = {
