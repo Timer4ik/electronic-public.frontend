@@ -27,11 +27,11 @@ const Component: FC<Props> = ({ children }) => {
         title: "Электрическая варочная поверхность DEXP 4M2CTYL/B [независимая, конфорок - 2 шт, панель - стеклокерамика, 3.2 кВт]"
     }
 
-    useEffect(() => {
-        (async () => {
-            await fetchProducts()
-        })()
-    }, [])
+    // useEffect(() => {
+    //     (async () => {
+    //         await fetchProducts()
+    //     })()
+    // }, [])
 
     return (
         <div>
