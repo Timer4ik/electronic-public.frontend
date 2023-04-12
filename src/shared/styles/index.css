@@ -32,12 +32,29 @@ h6 {
 }
 
 .button {
-    width: 100%;
-    padding: 10px;
+    padding: 15px 65px;
     background: #001B48;
-    border-radius: 7px;
-    color: white;
+    border-radius: 12px;
+
     text-align: center;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: white;
+
+    outline: none;
+    height: 100%;
+    border: 0;
+
+    cursor: pointer;
+    transition: all 0.2s linear;
+}
+
+.button:hover {
+    background: white;
+    color: #001B48;
 }
 
 a {
@@ -433,7 +450,19 @@ a {
     transform: translate(0, -50%);
     left: 20px;
     z-index: 100;
+
+    cursor: pointer;
+
 }
+.promotion-left svg ellipse,
+.promotion-right svg ellipse{
+    transition: all 0.1s linear;
+}
+.promotion-left:hover svg ellipse,
+.promotion-right:hover svg ellipse {
+    fill: rgba(255, 255, 255, 0.247);
+}
+
 
 .promotion-right {
 
@@ -442,6 +471,8 @@ a {
     transform: translate(0, -50%);
     right: 20px;
     z-index: 100;
+
+    cursor: pointer;
 }
 
 .promotion-slider .swiper-scrollbar {

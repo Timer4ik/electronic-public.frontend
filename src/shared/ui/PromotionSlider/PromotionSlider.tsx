@@ -9,6 +9,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
 import { useRouter } from "next/router";
+import Button from "../Button";
+import RightNavigationButton from "./RightNavigationButton";
+import LeftNavigationButton from "./LeftNavigationButton";
 
 
 type PromotionItem = {
@@ -48,9 +51,9 @@ export const PromotionSlider: FC<PromotionSliderProps> = ({ children, promotions
                                     {promotion.title ? <h5 className="promotion__title">{promotion.title}</h5> : null}
                                     {promotion.desc ? <div className="promotion__desc">{promotion.desc}</div> : null}
                                 </div>
-                                {promotion.buttonLink ? <button className="promotion__button" type="button" onClick={() => router.push(promotion.buttonLink)}>
+                                {promotion.buttonLink ? <Button type="button" onClick={() => router.push(promotion.buttonLink)}>
                                     Перейти
-                                </button> : null}
+                                </Button> : null}
                             </div>
                         </SwiperSlide>
                     )
@@ -58,10 +61,10 @@ export const PromotionSlider: FC<PromotionSliderProps> = ({ children, promotions
             </Swiper>
             <div className="promotion-nav">
                 <div className="promotion-left" onClick={() => swiperRef.current?.slidePrev()}>
-                    <Image src="/images/left-nav.svg" width="50" height="50" alt="" />
+                    <LeftNavigationButton />
                 </div>
                 <div className="promotion-right" onClick={() => swiperRef.current?.slideNext()}>
-                    <Image src="/images/right-nav.svg" width="50" height="50" alt="" />
+                    <RightNavigationButton />
                 </div>
             </div>
         </div>
