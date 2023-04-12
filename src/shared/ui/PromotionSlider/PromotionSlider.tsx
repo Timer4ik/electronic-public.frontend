@@ -42,9 +42,9 @@ export const PromotionSlider: FC<PromotionSliderProps> = ({ children, promotions
                     swiperRef.current = swiper;
                 }}
             >
-                {promotions.map(promotion => {
+                {promotions.map((promotion,idx) => {
                     return (
-                        <SwiperSlide>
+                        <SwiperSlide key={idx}>
                             <Image className="promotion-image" src={promotion.imageSource} width="1280" height="720" alt="" />
                             <div className="promotion-content">
                                 <div className="promotion__left">
