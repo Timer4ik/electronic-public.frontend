@@ -13,7 +13,7 @@ type Props = {
     actionButtons: React.ReactElement[] | React.ReactElement
 }
 
-const Card: FC<Props> = ({
+export const ProductCard: FC<Props> = ({
     children,
     price,
     feedbackCount,
@@ -49,5 +49,3 @@ const Card: FC<Props> = ({
         </div>
     )
 }
-
-export default Card

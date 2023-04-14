@@ -404,7 +404,7 @@ a {
 
 .card-small {
     display: flex;
-    width: 400px;
+    width: 380px;
     height: 130px;
 
     background: #F7F7F7;
@@ -487,7 +487,6 @@ a {
 }
 
 .swiper-slide {
-    text-align: center;
     font-size: 18px;
     background: #fff;
 
@@ -497,7 +496,7 @@ a {
     align-items: center;
 }
 
-.swiper-slide img {
+.swiper-slide .promotion-image {
     display: block;
     width: 100%;
     height: 100%;
@@ -706,4 +705,127 @@ a {
 .category__bottom {
     display: flex;
     justify-content: space-between;
+}
+
+.product__preview {
+    background: #FFFFFF;
+    border-radius: 6px;
+
+    width: 100%;
+    height: 572px;
+
+    padding: 36px;
+}
+
+
+.product__preview {
+    display: flex;
+    flex-direction: column;
+}
+
+.preview__row {
+    display: flex;
+    margin-bottom: 18px;
+}
+
+.preview__gallery {
+    display: flex;
+    flex-direction: column;
+
+    margin-right: 28px;
+}
+
+.preview__main {
+    width: 270px;
+    height: 270px;
+    margin-bottom: 25px;
+}
+
+.preview__etc img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-right: 6px;
+}
+
+.preview__etc img:last-child {
+    margin-right: 0px;
+}
+
+.preview__main img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.preview__title {
+    font-family: 'PT Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 150.93%;
+}
+
+.preview__column.actions {
+    display: flex;
+    margin-right: 0;
+}
+
+.preview__column.actions .cart-buton {
+    margin-right: 20px;
+}
+
+.preview__column.actions .cart-buton:last-child {
+    margin-right: 0px;
+}
+
+.preview__price {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 136.69%;
+}
+
+.preview__available {
+    font-family: 'PT Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 136.69%;
+}
+
+.preview__available span {
+    color: #2805FF;
+}
+
+.preview__stars img {
+    width: 32px;
+    height: 28px;
+    margin-right: 6px;
+}
+
+.preview__stars img:last-child {
+    margin-right: 0px;
+}
+
+.preview__row>* {
+    margin-right: 16px;
+}
+
+.preview__row button {
+    background: #000F92;
+    border-radius: 9px;
+
+    font-family: 'PT Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21px;
+    padding: 12px 31px;
+
+}
+
+.preview__content {
+    margin-right: 0;
 }

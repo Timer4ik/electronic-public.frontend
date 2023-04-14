@@ -17,7 +17,7 @@ type Props = {
 
 }
 
-const ProductItem: FC<Props> = ({
+export const ProductRow: FC<Props> = ({
     title,
     image,
     price,
@@ -54,5 +54,3 @@ const ProductItem: FC<Props> = ({
         </div>
     );
 }
-
-export default ProductItem;
