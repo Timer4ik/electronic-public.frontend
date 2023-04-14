@@ -635,3 +635,75 @@ a {
     border-top-right-radius: 11px;
     border-bottom-right-radius: 11px;
 }
+
+.category__block {
+    width: 290px;
+    height: 290px;
+
+    background: #FFFFFF;
+    border-radius: 20px;
+
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.category__img {
+    height: 160px;
+    width: 160px;
+    margin-top: 30px;
+}
+
+.category__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+.category__title {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+.category__content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 23px;
+}
+
+.category__title {
+    margin-bottom: 10px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+.category__price {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 136.69%;
+}
+
+.category__available {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.category__bottom {
+    display: flex;
+    justify-content: space-between;
+}

@@ -5,6 +5,7 @@ import { PromotionSlider } from '@/widgets'
 import { ProductSmallCard } from '@/entities/Product'
 import Button from '@/shared/ui/Button'
 import CartButton from '@/shared/ui/CartButton'
+import { CategoryBlock } from '@/entities/Category'
 
 type Props = {
   title: string
@@ -34,6 +35,7 @@ const Page: NextPageWithLayout = () => {
     <>
       <PromotionSlider />
       <ProductSmallCard {...data} />
+      <CategoryBlock available={1544} photo='/images/product.png' href="" title='Название' minPrice={2000} />
     </>
   )
 }

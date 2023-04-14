@@ -1,0 +1,1 @@
+export {CategoryBlock} from "./components/CategoryBlock"
