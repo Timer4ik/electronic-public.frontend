@@ -1,5 +1,7 @@
 import React, { FC } from "react"
-import { PromotionSlider as PromotionSliderShared } from "@/shared"
+import { PromotionSlider as PromotionSliderShared } from "@/entities/Promotion"
+import Button from "@/shared/ui/Button"
+import { useRouter } from "next/router"
 
 type Props = {
     children?: React.ReactElement | React.ReactElement[]
@@ -13,6 +15,9 @@ type PromotionItem = {
 }
 
 export const PromotionSlider: FC<Props> = ({ children }) => {
+
+    const router = useRouter()
+
     const promotions: PromotionItem[] = [
         {
             imageSource: "/images/slider.png",

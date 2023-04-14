@@ -1,9 +1,9 @@
 import { FC } from "react"
 import Image from "next/image"
-import ProductAvailableCount from "./ProductAvailableCount"
-import Stars from "./Stars"
-import ProductItemAmoutPrice from "./ProductItemAmoutPrice"
-import ProductItemReviewsCount from "./ProductItemReviewsCount"
+import ProductAvailableCount from "../../../shared/ui/ProductAvailableCount"
+import Stars from "../../../shared/ui/Stars"
+import ProductItemAmoutPrice from "../../../shared/ui/ProductItemAmoutPrice"
+import ProductItemReviewsCount from "../../../shared/ui/ProductItemReviewsCount"
 
 type Props = {
     title?: string

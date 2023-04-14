@@ -1,35 +1,27 @@
 import Image from "next/image";
-import React, { FC, useCallback, useRef } from "react"
+import React, { FC, ReactElement, useCallback, useRef } from "react"
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperType, Navigation, Scrollbar } from 'swiper';
 
-
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
-import { useRouter } from "next/router";
-import Button from "../Button";
-import RightNavigationButton from "./RightNavigationButton";
-import LeftNavigationButton from "./LeftNavigationButton";
 
-
-type PromotionItem = {
-    imageSource: string
-    title?: string
-    desc?: string
-    buttonLink?: any
-}
+import RightNavigationButton from "@/shared/ui/RightNavigationButton";
+import LeftNavigationButton from "@/shared/ui/LeftNavigationButton";
+import { PromotionItem } from "../types";
+import Button from "@/shared/ui/Button";
 
 type PromotionSliderProps = {
     promotions: PromotionItem[]
+    buttonSlot?: ReactElement | ReactElement[] | any
     children?: React.ReactElement | React.ReactElement[]
 }
 
-export const PromotionSlider: FC<PromotionSliderProps> = ({ children, promotions }) => {
+export const PromotionSlider: FC<PromotionSliderProps> = ({ children, promotions, buttonSlot }) => {
 
     const swiperRef = useRef<SwiperType>();
-    const router = useRouter()
 
     return (
         <div className="promotion-slider">
@@ -42,7 +34,7 @@ export const PromotionSlider: FC<PromotionSliderProps> = ({ children, promotions
                     swiperRef.current = swiper;
                 }}
             >
-                {promotions.map((promotion,idx) => {
+                {promotions.map((promotion, idx) => {
                     return (
                         <SwiperSlide key={idx}>
                             <Image className="promotion-image" src={promotion.imageSource} width="1280" height="720" alt="" />
@@ -51,9 +43,9 @@ export const PromotionSlider: FC<PromotionSliderProps> = ({ children, promotions
                                     {promotion.title ? <h5 className="promotion__title">{promotion.title}</h5> : null}
                                     {promotion.desc ? <div className="promotion__desc">{promotion.desc}</div> : null}
                                 </div>
-                                {promotion.buttonLink ? <Button type="button" onClick={() => router.push(promotion.buttonLink)}>
+                                <Button type="button" >
                                     Перейти
-                                </Button> : null}
+                                </Button>
                             </div>
                         </SwiperSlide>
                     )

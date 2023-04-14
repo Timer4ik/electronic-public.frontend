@@ -1,0 +1,1 @@
+export {ProductSmallCard} from "./components/ProductSmallCard"

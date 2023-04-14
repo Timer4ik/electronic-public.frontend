@@ -1,7 +1,7 @@
 import Image from "next/image"
 import React, { FC } from "react"
-import CartButton from "./CartButton"
-import Stars from "./Stars"
+import CartButton from "../../../shared/ui/CartButton"
+import Stars from "../../../shared/ui/Stars"
 
 type Props = {
     title: string
