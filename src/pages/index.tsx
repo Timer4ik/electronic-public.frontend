@@ -38,7 +38,21 @@ const Page: NextPageWithLayout = () => {
 
   return (
     <>
-      <ProductPreview >
+      <ProductPreview
+        photo="/images/product.png"
+        images={[
+          "/images/product.png",
+          "/images/product.png",
+          "/images/product.png",
+          "/images/product.png",
+          "/images/product.png",
+          "/images/product.png",
+          "/images/product.png",
+        ]}
+        available={4545}
+        price={5400}
+        title='Электрическая варочная поверхность DEXP 4M2C      TYL/B [независимая, конфорок -       2 шт, панель - стеклокерамика, 3.2 кВт]'
+      >
         <Swiper slidesPerView={2} spaceBetween={16}>
           <SwiperSlide>
             <ProductSmallCard {...data} />

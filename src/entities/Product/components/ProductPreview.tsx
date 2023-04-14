@@ -5,33 +5,43 @@ import Image from "next/image"
 import React, { FC } from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
 
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/scrollbar";
+
 type Props = {
+    photo: string
+    images: string[]
+    title: string
+    price: number
+    available: number
     children?: React.ReactElement | React.ReactElement[]
 }
 
-export const ProductPreview: FC<Props> = ({ children }) => {
+export const ProductPreview: FC<Props> = ({ children, photo, images, title, price, available }) => {
 
     return (
         <div className="product__preview">
             <div className="preview__row">
                 <div className="preview__gallery">
                     <div className="preview__main">
-                        <Image src="/images/product.png" width={100} height={100} alt="" />
+                        <Image src={photo} width={100} height={100} alt="" />
                     </div>
                     <div className="preview__etc">
-                        <Image src="/images/product.png" width={100} height={100} alt="" />
-                        <Image src="/images/product.png" width={100} height={100} alt="" />
-                        <Image src="/images/product.png" width={100} height={100} alt="" />
-                        <Image src="/images/product.png" width={100} height={100} alt="" />
-                        <Image src="/images/product.png" width={100} height={100} alt="" />
-                        <Image src="/images/product.png" width={100} height={100} alt="" />
+                        <Swiper slidesPerView={6} spaceBetween={2}>
+                            {images.map(image => (
+                                <SwiperSlide>
+                                    <Image src={image} width={100} height={100} alt="" />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
                     </div>
                 </div>
                 <div className="preview__content">
                     <div className="preview__row">
                         <div className="preview__column">
                             <div className="preview__title">
-                                Электрическая варочная поверхность DEXP 4M2C      TYL/B [независимая, конфорок -       2 шт, панель - стеклокерамика, 3.2 кВт]
+                                {title}
                             </div>
                         </div>
                         <div className="preview__column actions">
@@ -41,12 +51,12 @@ export const ProductPreview: FC<Props> = ({ children }) => {
                     </div>
                     <div className="preview__row">
                         <div className="preview__price">
-                            25 000 ₽
+                            {price.toLocaleString()} ₽
                         </div>
                     </div>
                     <div className="preview__row">
                         <div className="preview__available">
-                            В наличии: <span>в 3 магазинах</span>
+                            В наличии: <span>в {available.toLocaleString()} магазинах</span>
                         </div>
                     </div>
                     <div className="preview__row">

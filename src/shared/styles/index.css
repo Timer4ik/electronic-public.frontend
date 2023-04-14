@@ -741,6 +741,10 @@ a {
     margin-bottom: 25px;
 }
 
+.preview__etc {
+    width: 270px;
+}
+
 .preview__etc img {
     width: 40px;
     height: 40px;
