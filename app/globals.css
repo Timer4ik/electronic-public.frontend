@@ -11,7 +11,7 @@ html {
 html,
 body,
 #__next,
-.container{
+.container {
     padding: 0;
     margin: 0;
     height: 100%;
@@ -554,6 +554,39 @@ a {
     cursor: pointer;
 }
 
+h2.title {
+    font-family: 'PT Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 26px;
+
+    color: #001B48;
+    margin-bottom: 25px;
+}
+
+.swiper-slider .swiper-wrapper {
+    user-select: none;
+    margin-bottom: 40px;
+
+}
+
+.swiper-slider .swiper-scrollbar.swiper-scrollbar-horizontal {
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 7px;
+}
+
+.swiper-slider .swiper-scrollbar-drag {
+    background-color: #0343AD;
+    border-radius: 7px;
+}
+
+.swiper-slider .swiper-slide {
+    background: none;
+}
+
 .promotion-slider .swiper-scrollbar {
     background-color: rgba(205, 205, 205, 0.18);
     border-radius: 7px;
@@ -635,8 +668,8 @@ a {
 }
 
 .category__block {
-    width: 290px;
-    height: 290px;
+    width: 270px;
+    height: 270px;
 
     background: #FFFFFF;
     border-radius: 20px;
@@ -649,8 +682,8 @@ a {
 }
 
 .category__img {
-    height: 160px;
-    width: 160px;
+    height: 140px;
+    width: 140px;
     margin-top: 30px;
 }
 
@@ -831,4 +864,15 @@ a {
 
 .preview__content {
     margin-right: 0;
+}
+
+.category__list {
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: space-between;
+}
+
+.category__list .category__block {
+    margin-bottom: 20px;
 }

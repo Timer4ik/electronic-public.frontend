@@ -18,7 +18,7 @@ type Props = {
     actionButtons: React.ReactElement[] | React.ReactElement
 }
 
-const HomeProductPreview: FC<{ data: Props }> = ({ data }) => {
+export const HomeProductPreview: FC<{ data: Props }> = ({ data }) => {
     return (
         <ProductPreview
             photo="/images/product.png"
@@ -50,6 +50,4 @@ const HomeProductPreview: FC<{ data: Props }> = ({ data }) => {
     )
 }
 
-HomeProductPreview.propTypes = {}
 
-export default HomeProductPreview
