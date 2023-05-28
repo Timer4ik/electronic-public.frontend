@@ -1,0 +1,15 @@
+html {
+    font-family: $fontFamily;
+    color: $darkBlue;
+}
+
+body {
+    background-color: $mainColor;
+}
+
+.container {
+    max-width: 1270px;
+    width: 100%;
+    padding: 0 15px;
+    margin: 0 auto;
+}

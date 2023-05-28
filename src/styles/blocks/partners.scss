@@ -1,0 +1,28 @@
+.partners {
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 30px;
+    .partners__list {
+        font-size: 20px;
+        margin-top: 30px;
+        display: grid;
+        box-sizing: border-box;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-gap: 20px;
+        .partners__item {
+            aspect-ratio: 1;
+            width: 100%;
+            background: #FFFFFF;
+            border: 0.5px solid #B1B1B1;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            img {
+                width: 100px;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+    }
+}

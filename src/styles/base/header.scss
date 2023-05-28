@@ -1,0 +1,71 @@
+.header {
+    &__top {
+        background-color: $darkBlue;
+        padding: 16px 0;
+        .container {
+            font-size: 16px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header__city {
+            font-weight: 700;
+        }
+        .header__nav {
+            .nav__list {
+                @include flex-list;
+            }
+            .list__item {
+                margin-left: 35px;
+                a {
+                    @include reset-link;
+                }
+                &:first-child {
+                    margin-left: 0;
+                }
+            }
+        }
+        .header__phone {
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+        }
+    }
+    &__bottom {
+        margin-top: 20px;
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .bottom__left {
+            display: flex;
+            align-items: center;
+        }
+        .header__search input {
+            background: #FFFFFF;
+            border-radius: 7px;
+            outline: none;
+            border: none;
+            padding: 10px 26px;
+            width: 350px;
+            margin-left: 36px;
+            &::placeholder {
+                color: #0d233494;
+            }
+        }
+        .header__auth .auth__list {
+            @include flex-list;
+            .list__item {
+                margin-left: 20px;
+                &:first-child {
+                    margin-left: 0;
+                }
+                a {
+                    @include reset-link
+                }
+            }
+        }
+    }
+}

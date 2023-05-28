@@ -1,0 +1,17 @@
+.sidebar {
+    &__nav {
+        .nav__title {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .nav__list {
+            @include reset-list;
+            .list__item {
+                margin-top: 25px;
+                a {
+                    @include reset-link;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,26 @@
+.products-slider-ui {
+    margin-top: 25px;
+    overflow: hidden;
+    .products-slider {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 25px;
+    }
+    .swiper-wrapper {
+        user-select: none;
+        margin-bottom: 40px;
+    }
+    .swiper-scrollbar.swiper-scrollbar-horizontal {
+        left: 0;
+        right: 0;
+        width: 100%;
+        border-radius: 7px;
+    }
+    .swiper-scrollbar-drag {
+        background-color: #0343AD;
+        border-radius: 7px;
+    }
+    .swiper-slide {
+        background: none;
+    }
+}
