@@ -2,8 +2,8 @@ import { Header } from '@/components/base/Header'
 import { Footer } from '@/components/base/Footer'
 import { Aside } from '@/components/base/Aside'
 
-import "../shared/styles/index.scss"
-// import "../styles/style.scss"
+// import "../shared/styles/index.scss"
+import "../styles/style.scss"
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -36,25 +36,25 @@ export default function RootLayout({
       </head>
 
       <body>
-        {/* <div className="wrapper"> */}
+        <div className="wrapper">
 
-        {/* <Header />
+          <Header />
 
           <main className="main">
             <div className="container">
 
-              {/* @ts-expect-error Async Server Component */}
-        {/* <Aside />
+              {/* @ts-expect-error Async Server Component*/}
+              <Aside />
 
-              <div className="content"> */}
-        {children}
-        {/* </div>
+              <div className="content">
+                {children}
+              </div>
             </div>
           </main>
 
           <Footer />
 
-        </div> */}
+        </div>
       </body>
 
     </html>

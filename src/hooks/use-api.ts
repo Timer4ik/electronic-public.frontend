@@ -19,6 +19,9 @@ export const useApi = () => {
         getCategories(options: AxiosRequestConfig<any> = {}) {
             return baseFetch<ReponseData<ICategory[]>>(`/api/categories`, options)
         },
+        getCategoryById(id:number, options: AxiosRequestConfig<any> = {}) {
+            return baseFetch<ReponseData<ICategory>>(`/api/categories/${id}`, options)
+        },
         getProducts(options: AxiosRequestConfig<any> = {}) {
             return baseFetch<ReponseData<IProduct[]>>(`/api/products`, options)
         },

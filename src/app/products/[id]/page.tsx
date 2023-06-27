@@ -1,12 +1,14 @@
 "use client"
+import { fetchCategoryBreadCrumps } from '@/hooks/use-categories'
 import { fetchCategoryProperties } from '@/hooks/use-category-properties'
 import { fetchProducts } from '@/hooks/use-products'
-import { ICategoryProperty, IProduct, ReponseData } from '@/types/models'
+import { ICategory, ICategoryProperty, IProduct, ReponseData } from '@/types/models'
 import { ProductRow } from '@/ui'
+import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 interface Props {
-  params?: {
+  params: {
     id: number
   }
 }
@@ -21,6 +23,8 @@ export default function Products({ params }: Props) {
   //   }
   // })
 
+  const [breadCrumps, setBreadCrumps] = useState<ICategory[]>([])
+
   const [categoryProperties, setCategotyProperties] = useState<ReponseData<ICategoryProperty[]>>()
 
   useEffect(() => {
@@ -34,6 +38,9 @@ export default function Products({ params }: Props) {
       })
 
       setCategotyProperties(_categoryProperties)
+
+      const _breadCrumps = await fetchCategoryBreadCrumps(params.id)
+      setBreadCrumps(_breadCrumps)
     })()
   }, [])
 
@@ -43,7 +50,7 @@ export default function Products({ params }: Props) {
   const addPropValue = (property_value_id: number) => {
     setSelectedPropertyValues((prev) => [...prev, property_value_id])
   }
- 
+
   const refetchProducts = async () => {
 
     let prods = await fetchProducts({
@@ -58,22 +65,31 @@ export default function Products({ params }: Props) {
     setProducts(prods)
   }
 
+
   useEffect(() => {
     refetchProducts()
   }, [selectedPropertyValues])
 
   return (
     <div className="products">
+      <div style={{ display: "flex" }}>
+        <Link href={`/categories`}>Каталог</Link>
+        {breadCrumps.map((item) => {
+          return (
+            <Link href={`/categories/${item.category_id}`}>{"/" + item.name}</Link>
+          )
+        })}
+      </div>
       <div className="product__title big-title">Игровые компьютеры ({products?.count} товаров)</div>
-      <div>
+      <div style={{ display: "flex" }}>
         <div>
           {(categoryProperties?.data)?.map(item => {
             return (
               <div>
-                <h6>{item.name || item?.property?.name}</h6>
+                <h6 style={{ padding: 0, margin: 0 }} >{item.name || item?.property?.name}</h6>
                 <ul>
                   {item.property?.property_values?.map(item => {
-                    return <li onClick={() => addPropValue(item.property_value_id)}>{item.name}</li>
+                    return <li style={{ padding: 0, margin: 0 }} onClick={() => addPropValue(item.property_value_id)}>{item.name}</li>
                   })}
                 </ul>
               </div>

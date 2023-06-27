@@ -28,7 +28,7 @@ export interface IShopProduct {
     is_active: boolean
     is_sold: boolean
 
-    product?:IProduct
+    product?: IProduct
 }
 export interface IShop {
     shop_id: number
@@ -62,7 +62,7 @@ export interface ICategory {
     is_active: boolean
 
     file?: IFile
-    parent?: Omit<ICategory, "parent">
+    parent?: ICategory
 }
 
 export interface IPropertyValue {
@@ -79,7 +79,7 @@ export interface IProperty {
     name: string
     is_active: boolean
 
-    property_values?:IPropertyValue[]
+    property_values?: IPropertyValue[]
 }
 
 export interface IDeveloper {
@@ -104,9 +104,9 @@ export interface IProduct {
     file?: IFile
     developer?: IDeveloper
     category?: ICategory
-    shop_products?:IShopProduct[]
-    product_photos?:IProductPhoto[]
-    product_property_values?:IProductPropertyValue[]
+    shop_products?: IShopProduct[]
+    product_photos?: IProductPhoto[]
+    product_property_values?: IProductPropertyValue[]
 }
 
 export interface IProductPhoto {
@@ -130,7 +130,7 @@ export interface IProductPropertyValue {
     property?: IProperty
     product?: IProduct
     property_value?: IPropertyValue
-    category_property?:ICategoryProperty
+    category_property?: ICategoryProperty
 }
 
 export interface ISlider {
