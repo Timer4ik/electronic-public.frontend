@@ -10,8 +10,10 @@
         grid-gap: 23px;
         margin-top: 30px;
         .list__item {
+            min-height: 150px;
             display: flex;
             align-items: center;
+            justify-content: center;
             padding: 20px;
             border-radius: 20px;
             background-color: white;
@@ -27,11 +29,10 @@
                     height: 100%;
                 }
             }
-            .item__column {
-                margin-left: 15px;
-            }
+            .item__column {}
             .item__title {
                 font-weight: 700;
+                font-size: 20px;
             }
             .item__text {
                 margin-top: 10px;

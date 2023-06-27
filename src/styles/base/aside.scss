@@ -3,6 +3,7 @@
         .nav__title {
             font-size: 24px;
             font-weight: 700;
+            @include reset-link;
         }
         .nav__list {
             @include reset-list;
@@ -13,5 +14,8 @@
                 }
             }
         }
+    }
+    &__title {
+        @include reset-link;
     }
 }

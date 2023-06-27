@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -27,7 +28,7 @@ export const Header = () => {
                     <div className="bottom__left">
                         <div className="header__logo">
                             <Link href={"/"}>
-                                <img src="img/header/logo.svg" alt="" />
+                                <img  src="/img/header/logo.svg" alt="" />
                             </Link>
                         </div>
                         <div className="header__search">

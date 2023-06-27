@@ -1,24 +1,33 @@
+import { IProduct } from '@/types/models'
 import Image from 'next/image'
-import React from 'react'
+import Link from 'next/link'
+import React, { FC } from 'react'
 
-export const ProductRow = () => {
+type Props = {
+    product: IProduct
+}
+
+export const ProductRow: FC<Props> = ({ product }) => {
+
+    const availableCount = product?.shop_products?.filter(item => !item.is_sold && item.is_active).length
+
     return (
         <div className="product-row">
             <div className="row">
                 <div className="row-img">
-                    <Image width={100} height={100} src="/img/product.png" alt="" />
+                    <img src={product?.file?.link} alt="" />
                 </div>
                 <div className="row-info">
                     <div className="row-left">
-                        <a href="#" className="row-name">Электрическая варочная поверхность DEXP 4M2CTYL/B [независимая, конфорок - 2 шт, панель - стеклокерамика, 3.2 кВт]</a>
+                        <Link href={`/product/${product.product_id}`} className="row-name">{product.name}</Link>
                         <div className="row-block">
-                            <div className="row-price">25 000 р</div>
+                            <div className="row-price">{product.price.toLocaleString()} р</div>
                             <div className="row-stars">
-                                <Image width={100} height={100} src="/img/icons/full-star.svg" alt="" />
-                                <Image width={100} height={100} src="/img/icons/full-star.svg" alt="" />
-                                <Image width={100} height={100} src="/img/icons/full-star.svg" alt="" />
-                                <Image width={100} height={100} src="/img/icons/full-star.svg" alt="" />
-                                <Image width={100} height={100} src="/img/icons/full-star.svg" alt="" />
+                                <Image width={20} height={20} src="/img/icons/full-star.svg" alt="" />
+                                <Image width={20} height={20} src="/img/icons/full-star.svg" alt="" />
+                                <Image width={20} height={20} src="/img/icons/full-star.svg" alt="" />
+                                <Image width={20} height={20} src="/img/icons/full-star.svg" alt="" />
+                                <Image width={20} height={20} src="/img/icons/full-star.svg" alt="" />
                             </div>
                         </div>
                         <div className="row-comments">Отзывов: 12 к.</div>
@@ -26,14 +35,21 @@ export const ProductRow = () => {
                     <div className="row-right">
                         <div className="row-actions">
                             <a href="#" className="row-cart row-action">
-                                <Image width={100} height={100} src="/img/icons/cart.svg" alt="" />
+                                <Image width={15} height={15} src="/img/icons/cart.svg" alt="" />
                             </a>
                             <a href="#" className="row-favourite row-action">
-                                <Image width={100} height={100} src="/img/icons/heart.svg" alt="" />
+                                <Image width={15} height={15} src="/img/icons/heart.svg" alt="" />
                             </a>
                         </div>
                         <div className="row-available">
-                            В наличии: <span>в 3 магазинах</span>
+                            {availableCount ?
+                                <>
+                                    В наличии: <span>в {availableCount} магазинах</span>
+                                </> :
+                                <>
+                                   Нет в наличии
+                                </>
+                            }
                         </div>
                     </div>
                 </div>

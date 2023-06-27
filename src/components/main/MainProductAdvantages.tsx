@@ -7,57 +7,30 @@ export const MainProductAdvantages = () => {
             <div className="title">Наши преимущества перед другими магазинами</div>
             <div className="advantages__list list">
                 <div className="list__item">
-                    <div className="item__img">
+                    {/* <div className="item__img">
                         <Image width={100} height={100} src="/img/product.png" alt="" />
-                    </div>
+                    </div> */}
                     <div className="item__column">
                         <div className="item__title">Доступность</div>
-                        <div className="item__text">Более 250 точек открыто к сегодняшнему дню и ещё 13 планируется в этом месяце</div>
+                        <div>У нас более 20 магазинов по городу</div>
                     </div>
                 </div>
                 <div className="list__item">
-                    <div className="item__img">
+                    {/* <div className="item__img">
                         <Image width={100} height={100} src="/img/product.png" alt="" />
-                    </div>
+                    </div> */}
                     <div className="item__column">
-                        <div className="item__title">Доступность</div>
-                        <div className="item__text">Более 250 точек открыто к сегодняшнему дню и ещё 13 планируется в этом месяце</div>
+                        <div className="item__title">Скорость</div>
+                        <div>У нас в распоряжении яндекс такси</div>
                     </div>
                 </div>
                 <div className="list__item">
-                    <div className="item__img">
+                    {/* <div className="item__img">
                         <Image width={100} height={100} src="/img/product.png" alt="" />
-                    </div>
+                    </div> */}
                     <div className="item__column">
-                        <div className="item__title">Доступность</div>
-                        <div className="item__text">Более 250 точек открыто к сегодняшнему дню и ещё 13 планируется в этом месяце</div>
-                    </div>
-                </div>
-                <div className="list__item">
-                    <div className="item__img">
-                        <Image width={100} height={100} src="/img/product.png" alt="" />
-                    </div>
-                    <div className="item__column">
-                        <div className="item__title">Доступность</div>
-                        <div className="item__text">Более 250 точек открыто к сегодняшнему дню и ещё 13 планируется в этом месяце</div>
-                    </div>
-                </div>
-                <div className="list__item">
-                    <div className="item__img">
-                        <Image width={100} height={100} src="/img/product.png" alt="" />
-                    </div>
-                    <div className="item__column">
-                        <div className="item__title">Доступность</div>
-                        <div className="item__text">Более 250 точек открыто к сегодняшнему дню и ещё 13 планируется в этом месяце</div>
-                    </div>
-                </div>
-                <div className="list__item">
-                    <div className="item__img">
-                        <Image width={100} height={100} src="/img/product.png" alt="" />
-                    </div>
-                    <div className="item__column">
-                        <div className="item__title">Доступность</div>
-                        <div className="item__text">Более 250 точек открыто к сегодняшнему дню и ещё 13 планируется в этом месяце</div>
+                        <div className="item__title">Качество</div>
+                        <div>Товары доставляются в сохранности</div>
                     </div>
                 </div>
             </div>

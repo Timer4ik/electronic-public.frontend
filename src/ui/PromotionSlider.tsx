@@ -1,24 +1,17 @@
 'use client';
-import Image from 'next/image'
-import React, { FC, ReactElement, useRef } from 'react'
+import React, { FC, ReactNode, useRef } from 'react'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperType, Navigation, Scrollbar } from 'swiper';
+import { ISlider } from '@/types/models';
+import Link from 'next/link';
 
-type PromotionItem = {
-    imageSource: string
-    title?: string
-    desc?: string
-    link?: string
+type Props = {
+    sliders: ISlider[]
+    children?: ReactNode
 }
 
-type PromotionSliderProps = {
-    promotions: PromotionItem[]
-    buttonSlot?: ReactElement | ReactElement[] | any
-    children?: React.ReactElement | React.ReactElement[]
-}
-
-export const PromotionSlider: FC<PromotionSliderProps> = ({ children, promotions, buttonSlot }) => {
+export const PromotionSlider: FC<Props> = ({ children, sliders }) => {
 
     const swiperRef = useRef<SwiperType>();
 
@@ -33,20 +26,23 @@ export const PromotionSlider: FC<PromotionSliderProps> = ({ children, promotions
                 swiperRef.current = swiper;
             }}
         >
-            {promotions.map((promotion, idx) => {
+            {sliders?.map((slider, idx) => {
                 return (
                     <SwiperSlide key={idx} className="slider">
                         <div className="slider-image">
-                            <Image width={100} height={100} src="/img/promotion/slider.png" alt="" />
+                            <img src={slider.file?.link} alt="" />
                         </div>
 
-
-
                         <div className="slider-content">
-                            <div className="slider-title">Адель, купи 2 компьютера, по цене 4</div>
+                            <div className="slider-title">{slider.title}</div>
                             <div className="slider-bottom">
-                                <div className="slider-text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventor</div>
-                                <button className="slider-button">Перейти к акции</button>
+                                <div className="slider-text">{slider.text}</div>
+                                {
+                                    !!slider.product_id &&
+                                    <Link href={`/product/${slider.product_id}`} className="slider-button">
+                                        Перейти к акции
+                                    </Link>
+                                }
                             </div>
                         </div>
                     </SwiperSlide>

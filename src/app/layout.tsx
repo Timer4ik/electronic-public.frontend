@@ -7,6 +7,7 @@ import "../styles/style.scss"
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
+import "swiper/css/grid";
 
 export const metadata = {
   title: 'Create Next App',
@@ -40,6 +41,8 @@ export default function RootLayout({
 
           <main className="main">
             <div className="container">
+
+              {/* @ts-expect-error Async Server Component */}
               <Aside />
 
               <div className="content">

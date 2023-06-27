@@ -1,17 +1,23 @@
+import { IProduct } from '@/types/models'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { FC } from 'react'
+interface Props {
+    product: IProduct
+}
 
-export const ProductCard = () => {
+export const ProductCard: FC<Props> = ({ product }) => {
     return (
         <div className="product-card">
-            <Link href={"/product"} className="card">
-                <div className="card-photo"><Image width={100} height={100} src="/img/product.png" alt="" /></div>
+            <Link href={`/product/${product.product_id}`} className="card">
+                <div className="card-photo">
+                    {product.file && <img src={product.file.link} alt="" />}
+                </div>
                 <div className="card-name">
-                    Электрическая варочная поверхность DEXP 4M2CTYL/B [независимая, конфорок - 2 шт, панель - стеклокерамика, 3.2 кВт]
+                    {product.name}
                 </div>
                 <div className="card-row">
-                    <div className="card-price">25 000 Р</div>
+                    <div className="card-price">{product.price.toLocaleString()} ₽</div>
                     <div className="card-actions">
                         <div className="card-cart"></div>
                         <div className="card-favourite"></div>
