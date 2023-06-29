@@ -50,10 +50,12 @@ export const Header = () => {
                     position: "sticky",
                     top: 0,
                     zIndex: 1000,
-                    background: "#3B4FFF",
-                    // borderRadius: 20,
-                    borderBottom: "1px solid rgb(57 75 237)",
-                    color: "white"
+                    background: "#F5F9FC",
+                    // background: "#3B4FFF",
+                    borderRadius: 20,
+                    borderBottom:"1px solid #80808030",
+                    // borderBottom: "1px solid rgb(57 75 237)",
+                    // color: "white"
                 }}
             >
                 <Container>
@@ -61,7 +63,7 @@ export const Header = () => {
 
                         <Stack alignItems='center' gap={3}>
                             <Link href={"/"}>
-                                <img style={{ minWidth: 190, minHeight: 60 }} src="/img/header/light-logo.svg" alt="" />
+                                <img style={{ minWidth: 190, minHeight: 60 }} src="/img/header/logo.svg" alt="" />
                             </Link>
                         </Stack>
 
