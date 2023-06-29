@@ -12,10 +12,10 @@ export const Aside = async () => {
     })
 
     return (
-        <aside style={{position:"sticky",top:121,height:"200px"}}>
+        <div style={{ position: "sticky" }}>
             <nav>
-                <Stack flexDirection='column' gap={3}>
-                    <Stack style={{ minWidth: "18%" }} backgroundColor='standard' >
+                <Stack  gap={5} alignItems='center'>
+                    <Stack  backgroundColor='standard' >
                         <Typography fontSize={8} fontWeight='bold'>
                             <Link
                                 href={"/categories"}
@@ -27,13 +27,18 @@ export const Aside = async () => {
                     {categories?.data?.map(category => {
                         return (
                             <Link href={"/categories/" + category.category_id}>
-                                {category.name}
+                                <Stack gap={1} alignItems='center'>
+                                    <img width={20} height={20} src='/img/icons/icon.svg' />
+                                    <Typography fontSize={3}>
+                                        {category.name}
+                                    </Typography>
+                                </Stack>
                             </Link>
                         )
                     })}
 
                 </Stack>
             </nav>
-        </aside>
+        </div>
     )
 }
