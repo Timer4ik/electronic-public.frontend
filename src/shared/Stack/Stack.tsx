@@ -15,10 +15,12 @@ interface Props extends Pick<React.HTMLAttributes<HTMLDivElement>, "style"> {
     paddingY?: 1 | 2 | 3 | 4 | 5
     paddingX?: 1 | 2 | 3 | 4 | 5
     backgroundColor?: "standard" | "danger" | "green" | "primary"
+    flex?: "same-all" | "stretch-all"
 }
 
-export const Stack: FC<Props> = ({ children, className, style, alignItems, paddingX, padding, paddingY, backgroundColor, flexDirection, gap, marginX, marginY, marginBottom, justifyContent, marginTop }) => {
+export const Stack: FC<Props> = ({ children, className, style, flex, alignItems, paddingX, padding, paddingY, backgroundColor, flexDirection, gap, marginX, marginY, marginBottom, justifyContent, marginTop }) => {
 
+    const flexStyle = flex !== undefined ? " stack-flex-" + flex : ""
     const gapStyle = gap ? " stack-gap-" + gap : ""
     const flexDirectionStyle = flexDirection ? " stack-" + flexDirection : " stack-row"
     const marginXStyle = marginX ? " stack-marginX-" + marginX : ""
@@ -34,7 +36,7 @@ export const Stack: FC<Props> = ({ children, className, style, alignItems, paddi
     const backgroundColorStyle = backgroundColor ? " stack-bg-" + backgroundColor : ""
 
     return (
-        <div style={style} className={(className || "") + ' stack' + paddingYStyle + paddingXStyle + backgroundColorStyle + paddingStyle + alignItemsStyle + justifyContentStyle + flexDirectionStyle + gapStyle + marginXStyle + marginYStyle + marginBottomStyle + marginTopStyle}>
+        <div style={style} className={(className || "") + ' stack' + flexStyle + paddingYStyle + paddingXStyle + backgroundColorStyle + paddingStyle + alignItemsStyle + justifyContentStyle + flexDirectionStyle + gapStyle + marginXStyle + marginYStyle + marginBottomStyle + marginTopStyle}>
             {children}
         </div>
     )

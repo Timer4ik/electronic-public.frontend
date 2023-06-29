@@ -18,10 +18,10 @@ export const ProductRow: FC<Props> = ({ product }) => {
         }}>
             <Stack gap={3} style={{ width: "100%" }}>
                 <img style={{
-                    height: "100px",
-                    width: "100px",
+                    height: "160px",
+                    width: "160px",
                     objectFit: "contain",
-                    flex: "0 0 100px"
+                    flex: "0 0 160px"
                 }} src={product?.file?.link} alt="" />
                 <Stack flexDirection='column' gap={2} style={{ flex: "1 1 auto" }} justifyContent='space-between'>
                     <Typography>
@@ -66,7 +66,7 @@ export const ProductRow: FC<Props> = ({ product }) => {
                         </Stack>
                     </Stack>
                     <Typography fontSize={3}>
-                        {!availableCount ?
+                        {availableCount ?
                             <>
                                 В наличии: <Typography fontSize={3} color='blue'>в {availableCount} магазинах</Typography>
                             </> :

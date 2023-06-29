@@ -95,34 +95,36 @@ export default function Products({ params }: Props) {
         </div>
       </div>}
       <div className="product__title big-title">Игровые компьютеры ({products?.count} товаров)</div>
-      <Stack style={{ display: "grid", gridTemplateColumns: "3fr 9fr", gap: 20 }}>
-        <Card padding={2} >
-          <Stack flexDirection='column' gap={3}>
-            <Stack flexDirection='column' gap={2}>
-              <Typography fontSize={3} fontWeight='medium'>Поиск по названию товара</Typography>
-              <Field placeholder='Поиск по названию' />
-            </Stack>
-            {(categoryProperties?.data)?.map(item => {
-              return (
-                <Stack flexDirection='column' gap={2}>
-                  <div>
-                    <Typography fontSize={3} fontWeight='medium'>{item.name || item?.property?.name}</Typography>
-                  </div>
-                  <Stack flexDirection='column' gap={2}>
-                    {item.property?.property_values?.map(item => {
-                      return (
-                        <label>
-                          <Checkbox label={item.name} type='checkbox' onClick={() => addPropValue(item.property_value_id)} />
-                          {/* <Typography style={{ padding: 0, margin: 0 }}>{item.name}</Typography> */}
-                        </label>
-                      )
-                    })}
-                  </Stack>
-                </Stack>
-              )
-            })}
+      <Stack style={{ display: "grid", gridTemplateColumns: "3fr 10fr", gap: 20 }}>
+        <Stack flexDirection='column' gap={1}>
+          <Stack flexDirection='column' gap={1}>
+            <Typography fontSize={3} fontWeight='medium'>Поиск по названию товара</Typography>
+            <Field placeholder='Поиск по названию' />
           </Stack>
-        </Card>
+          <Card padding={2} >
+            <Stack flexDirection='column' gap={3}>
+              {(categoryProperties?.data)?.map(item => {
+                return (
+                  <Stack flexDirection='column' gap={1}>
+                    <div>
+                      <Typography fontSize={2} fontWeight='medium'>{item.name || item?.property?.name}</Typography>
+                    </div>
+                    <Stack flexDirection='column' gap={1}>
+                      {item.property?.property_values?.map(item => {
+                        return (
+                          <label>
+                            <Checkbox label={item.name} type='checkbox' onClick={() => addPropValue(item.property_value_id)} />
+                            {/* <Typography style={{ padding: 0, margin: 0 }}>{item.name}</Typography> */}
+                          </label>
+                        )
+                      })}
+                    </Stack>
+                  </Stack>
+                )
+              })}
+            </Stack>
+          </Card>
+        </Stack>
 
         <Stack flexDirection='column' className="products__list" gap={1}>
           {products?.data.map(product => {
@@ -132,6 +134,6 @@ export default function Products({ params }: Props) {
           })}
         </Stack>
       </Stack>
-    </Stack>
+    </Stack >
   )
 }
