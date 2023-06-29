@@ -1,14 +1,17 @@
-import { Header } from '@/components/base/Header'
-import { Footer } from '@/components/base/Footer'
-import { Aside } from '@/components/base/Aside'
+import { Header } from '@/components/Header/Header'
+import { Footer } from '@/components/Footer/Footer'
+import { Aside } from '@/components/Aside/Aside'
 
-// import "../shared/styles/index.scss"
-import "../styles/style.scss"
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
 import "swiper/css/grid";
+
+import "../styles/style.scss"
+import "../shared/styles/index.scss"
+
+import { Container, Stack } from '@/shared'
 
 export const metadata = {
   title: 'Create Next App',
@@ -36,27 +39,23 @@ export default function RootLayout({
       </head>
 
       <body>
-        <div className="wrapper">
 
+        <Stack flexDirection='column'>
           <Header />
 
-          <main className="main">
-            <div className="container">
+          {children}
 
-              {/* @ts-expect-error Async Server Component*/}
-              <Aside />
+        </Stack>
 
-              <div className="content">
-                {children}
-              </div>
-            </div>
-          </main>
-
-          <Footer />
-
-        </div>
       </body>
 
     </html>
   )
 }
+
+//  {/* @ts-expect-error Async Server Component*/}
+//  <Aside />
+
+//  <div className="content">
+//    {children}
+//  </div>

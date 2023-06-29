@@ -1,12 +1,14 @@
-import { Header } from "@/shared";
+import { Container, Stack, Typography } from "@/shared";
+import Link from "next/link";
 
 
 export default function Product() {
     return (
-        <div>
-            <Header padding={3} backgroundColor={"standard"}>
-                hello
-            </Header>
-        </div>
+        <Stack
+            padding={1}
+            backgroundColor={"standard"}
+        >
+           
+        </Stack>
     )
 }

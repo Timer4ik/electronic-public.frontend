@@ -1,6 +1,6 @@
 import { fetchCategoryProperties } from "@/hooks/use-category-properties";
 import { fetchProductById, fetchProducts } from "@/hooks/use-products";
-import { Slider } from "@/ui/Slider";
+import { Slider } from "@/shared/Slider/Slider";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -85,8 +85,9 @@ export default async function Product({ params }: Props) {
                         </div>
                     </div>
                 </div>
+                
                 <div className="preview__bottomside">
-                    <Slider className="bottomside__products">
+                    <Slider className="bottomside__products" slidesPerView={2} >
                         {products.data?.map(item => {
                             return (
                                 <Link href={`/product/${item.product_id}`} className="products__item item">

@@ -1,9 +1,10 @@
 "use client"
+import { ProductRow } from '@/components/ProductRow/ProductRow'
 import { fetchCategoryBreadCrumps } from '@/hooks/use-categories'
 import { fetchCategoryProperties } from '@/hooks/use-category-properties'
 import { fetchProducts } from '@/hooks/use-products'
+import { Card, Checkbox, Field, Stack, Typography } from '@/shared'
 import { ICategory, ICategoryProperty, IProduct, ReponseData } from '@/types/models'
-import { ProductRow } from '@/ui'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
@@ -12,18 +13,10 @@ interface Props {
     id: number
   }
 }
-
 export default function Products({ params }: Props) {
 
-  // const products = await fetchProducts({
-  //   params: {
-  //     "filter[is_active]": true,
-  //     "filter[category_id]": params?.id,
-  //     extend: "file,shop_products"
-  //   }
-  // })
-
   const [breadCrumps, setBreadCrumps] = useState<ICategory[]>([])
+  const [currentCategory, setCurrentCategory] = useState<ICategory>()
 
   const [categoryProperties, setCategotyProperties] = useState<ReponseData<ICategoryProperty[]>>()
 
@@ -37,10 +30,18 @@ export default function Products({ params }: Props) {
         }
       })
 
-      setCategotyProperties(_categoryProperties)
+      setCategotyProperties({
+        count: _categoryProperties.count || 0,
+        message: _categoryProperties.message || "",
+        data: _categoryProperties.data.map(item => ({
+          ...item,
+        }))
+      })
 
       const _breadCrumps = await fetchCategoryBreadCrumps(params.id)
-      setBreadCrumps(_breadCrumps)
+
+      setBreadCrumps(_breadCrumps.data)
+      setCurrentCategory(_breadCrumps.lastCategory)
     })()
   }, [])
 
@@ -48,6 +49,12 @@ export default function Products({ params }: Props) {
   const [selectedPropertyValues, setSelectedPropertyValues] = useState<number[]>([])
 
   const addPropValue = (property_value_id: number) => {
+
+    if (selectedPropertyValues.find(item => item === property_value_id)) {
+      setSelectedPropertyValues(prev => prev.filter(item => item !== property_value_id))
+      return
+    }
+
     setSelectedPropertyValues((prev) => [...prev, property_value_id])
   }
 
@@ -71,39 +78,60 @@ export default function Products({ params }: Props) {
   }, [selectedPropertyValues])
 
   return (
-    <div className="products">
-      <div style={{ display: "flex" }}>
-        <Link href={`/categories`}>Каталог</Link>
-        {breadCrumps.map((item) => {
-          return (
-            <Link href={`/categories/${item.category_id}`}>{"/" + item.name}</Link>
-          )
-        })}
-      </div>
-      <div className="product__title big-title">Игровые компьютеры ({products?.count} товаров)</div>
-      <div style={{ display: "flex" }}>
-        <div>
-          {(categoryProperties?.data)?.map(item => {
-            return (
-              <div>
-                <h6 style={{ padding: 0, margin: 0 }} >{item.name || item?.property?.name}</h6>
-                <ul>
-                  {item.property?.property_values?.map(item => {
-                    return <li style={{ padding: 0, margin: 0 }} onClick={() => addPropValue(item.property_value_id)}>{item.name}</li>
-                  })}
-                </ul>
-              </div>
-            )
-          })}
+    <Stack flexDirection='column' gap={3}>
+      {breadCrumps && <div style={{ display: "flex" }}>
+        <div style={{ display: "flex" }}>
+          <pre>
+            <Typography fontSize={3}><Link href={`/categories`}>Каталог</Link></Typography>
+            {breadCrumps.map((item) => {
+              return (
+                <Typography fontSize={3}><Link href={`/categories/${item.category_id}`}>{" > " + item.name}</Link></Typography>
+              )
+            })}
+            <Typography fontWeight="bold" fontSize={5}>
+              <Link href={`/products/${currentCategory?.category_id}`}>{" > " + currentCategory?.name}</Link>
+            </Typography>
+          </pre>
         </div>
-        <div className="products__list">
+      </div>}
+      <div className="product__title big-title">Игровые компьютеры ({products?.count} товаров)</div>
+      <Stack style={{ display: "grid", gridTemplateColumns: "3fr 9fr", gap: 20 }}>
+        <Card padding={2} >
+          <Stack flexDirection='column' gap={3}>
+            <Stack flexDirection='column' gap={2}>
+              <Typography fontSize={3} fontWeight='medium'>Поиск по названию товара</Typography>
+              <Field placeholder='Поиск по названию' />
+            </Stack>
+            {(categoryProperties?.data)?.map(item => {
+              return (
+                <Stack flexDirection='column' gap={2}>
+                  <div>
+                    <Typography fontSize={3} fontWeight='medium'>{item.name || item?.property?.name}</Typography>
+                  </div>
+                  <Stack flexDirection='column' gap={2}>
+                    {item.property?.property_values?.map(item => {
+                      return (
+                        <label>
+                          <Checkbox label={item.name} type='checkbox' onClick={() => addPropValue(item.property_value_id)} />
+                          {/* <Typography style={{ padding: 0, margin: 0 }}>{item.name}</Typography> */}
+                        </label>
+                      )
+                    })}
+                  </Stack>
+                </Stack>
+              )
+            })}
+          </Stack>
+        </Card>
+
+        <Stack flexDirection='column' className="products__list" gap={1}>
           {products?.data.map(product => {
             return (
               <ProductRow product={product} />
             )
           })}
-        </div>
-      </div>
-    </div>
+        </Stack>
+      </Stack>
+    </Stack>
   )
 }

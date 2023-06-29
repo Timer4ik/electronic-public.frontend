@@ -1,8 +1,7 @@
+import { CategoryCard } from "@/components/CategoryCard/CategoryCard";
 import { fetchCategories, fetchCategoryBreadCrumps, fetchCategoryById } from "@/hooks/use-categories";
-import { CategoryCard } from "@/ui";
-import { getCategoryListFromTree } from "@/utils/getCategoryListFromTree";
+import { Container, Stack, Typography } from "@/shared";
 import Link from "next/link";
-import { FC } from "react";
 
 interface Props {
     params: {
@@ -19,31 +18,44 @@ const Categories = async ({ params }: Props) => {
             extend: "file"
         }
     })
- 
+
     const breadCrumps = await fetchCategoryBreadCrumps(+params.id)
 
     return (
-        <div className="product__categories categories">
+        <>
             <div style={{ display: "flex" }}>
-                <Link href={`/categories`}>Каталог</Link>
-                {breadCrumps.map((item) => {
-                    return (
-                        <Link href={`/categories/${item.category_id}`}>{"/"+item.name}</Link>
-                    )
-                })}
+                <div style={{ display: "flex" }}>
+                    <pre>
+                        <Typography fontSize={3}><Link href={`/categories`}>Каталог</Link></Typography>
+                        {breadCrumps.data.map((item) => {
+                            return (
+                                <Typography fontSize={3}><Link href={`/categories/${item.category_id}`}>{" > " + item.name}</Link></Typography>
+                            )
+                        })}
+                        <Typography fontWeight="bold" fontSize={5}>
+                            <Link href={`/categories/${breadCrumps.lastCategory?.category_id}`}>{" > " + breadCrumps.lastCategory?.name}</Link>
+                        </Typography>
+                    </pre>
+                </div>
             </div>
-            <div className="big-title">Категории</div>
-            <div className="categories__blocks blocks">
-                {categories?.data?.map(category => {
-                    return (
-                        <CategoryCard key={category.category_id} category={category} />
-                    )
-                })}
-            </div>
-        </div>
+            <Stack flexDirection='column' gap={3}>
+                <Typography fontSize={6} fontWeight='bold'>{breadCrumps.lastCategory?.name}</Typography>
+                <div style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr 1fr 1fr"
+                    , gap: "20px"
+                }}>
+                    {categories.data.map(category => {
+                        return (
+                            <Link href={category.is_end ? `/products/${category.category_id}`: `/categories/${category.category_id}`}>
+                                <CategoryCard category={category} />
+                            </Link>
+                        )
+                    })}
+                </div>
+            </Stack>
+        </>
     )
 }
 export default Categories
-
-
 

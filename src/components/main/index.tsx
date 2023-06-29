@@ -1,7 +1,0 @@
-export { MainPromotionSlider } from "./MainPromotionSlider"
-export { MainPopularProducts } from "./MainPopularProducts"
-export { MainProductCategories } from "./MainProductCategories"
-export { MainProductAdvantages } from "./MainProductAdvantages"
-export { MainLocation } from "./MainLocation"
-export { MainPartners } from "./MainPartners"
-export { MainRecently } from "./MainRecently"

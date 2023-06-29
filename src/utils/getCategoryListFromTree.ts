@@ -4,9 +4,13 @@ function convertCategoryTreeToList(cats: ICategory[], data: ICategory): ICategor
     if (!data.parent) {
         return cats
     }
-    return convertCategoryTreeToList([...cats, data.parent], data.parent)
+
+    const { parent, ...cat } = data.parent
+
+    return convertCategoryTreeToList([...cats, cat], data.parent)
 }
 
 export function getCategoryListFromTree(category: ICategory): ICategory[] {
+
     return convertCategoryTreeToList([], category).reverse()
 }

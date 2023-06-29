@@ -19,13 +19,20 @@ export async function fetchCategories(options: AxiosRequestConfig<any>) {
     return response.data
 }
 
-export async function fetchCategoryBreadCrumps(id: number) : Promise<ICategory[]> {
+export async function fetchCategoryBreadCrumps(id: number): Promise<{
+    data: ICategory[]
+    lastCategory: ICategory
+}> {
 
-    let cats = await fetchCategoryById(id, {
+    let response = await fetchCategoryById(id, {
         params: {
             extend: "parent"
         }
     })
+    let { parent, ...category } = response.data
 
-    return getCategoryListFromTree(cats?.data)
+    return {
+        data: getCategoryListFromTree(response?.data),
+        lastCategory: category
+    }
 }

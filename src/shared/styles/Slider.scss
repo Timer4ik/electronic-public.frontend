@@ -1,0 +1,17 @@
+.slider {
+    width: 100%;
+    padding-bottom: 40px;
+    .swiper-scrollbar.swiper-scrollbar-horizontal {
+        left: 0;
+        right: 0;
+        width: 100%;
+        border-radius: 7px;
+    }
+    .swiper-scrollbar-drag {
+        background-color: #0343AD;
+        border-radius: 7px;
+    }
+    .swiper-slide {
+        background: none;
+    }
+}

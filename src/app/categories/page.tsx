@@ -1,5 +1,7 @@
+import { CategoryCard } from "@/components/CategoryCard/CategoryCard";
 import { fetchCategories } from "@/hooks/use-categories";
-import { CategoryCard } from "@/ui";
+import { Stack, Typography } from "@/shared";
+import Link from "next/link";
 
 
 export default async function Categories() {
@@ -7,19 +9,35 @@ export default async function Categories() {
         params: {
             "filter[is_active]": true,
             "filter[parent_id]": 0,
-            extend:"file"
+            extend: "file"
         }
     })
     return (
-        <div className="product__categories categories">
-            <div className="big-title">Категории</div>
-            <div className="categories__blocks blocks">
-                {categories?.data?.map(category => {
-                    return (
-                        <CategoryCard key={category.category_id} category={category} />
-                    )
-                })}
+        <>
+            <div style={{ display: "flex" }}>
+                <div style={{ display: "flex" }}>
+                    <pre>
+                        <Typography fontWeight="bold" fontSize={5}><Link href={`/`}>Главная</Link></Typography>
+                        <Typography fontSize={3}><Link href={`/categories`}> {">"} Каталог товаров</Link></Typography>
+                    </pre>
+                </div>
             </div>
-        </div>
+            <Stack flexDirection='column' gap={3}>
+                <Typography fontSize={8} fontWeight='bold'>Каталог товаров</Typography>
+                <div style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr 1fr 1fr",
+                    gap: "20px"
+                }}>
+                    {categories.data.map(category => {
+                        return (
+                            <Link href={`/categories/${category.category_id}`}>
+                                <CategoryCard category={category} />
+                            </Link>
+                        )
+                    })}
+                </div>
+            </Stack>
+        </>
     )
 }
