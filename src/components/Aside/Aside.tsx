@@ -12,10 +12,10 @@ export const Aside = async () => {
     })
 
     return (
-        <div style={{ position: "sticky" }}>
+        <div style={{ position: "sticky",flex:"0 0 18%" }}>
             <nav>
-                <Stack  gap={5} alignItems='center'>
-                    <Stack  backgroundColor='standard' >
+                <Stack gap={5} flexDirection='column'>
+                    <Stack backgroundColor='standard' >
                         <Typography fontSize={8} fontWeight='bold'>
                             <Link
                                 href={"/categories"}

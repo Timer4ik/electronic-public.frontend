@@ -9,16 +9,17 @@ type Props = {
     className?: string
     slidesPerView?: number | "auto"
     style?: React.CSSProperties
-    spaceBetween?:number
+    spaceBetween?: number
+    scrollbarHide?: boolean
 }
 
-export const Slider: FC<Props> = ({ children, className, slidesPerView, style, spaceBetween }) => {
+export const Slider: FC<Props> = ({ children, scrollbarHide, className, slidesPerView, style, spaceBetween }) => {
 
     return (
         <Swiper
             className={"slider " + className}
             scrollbar={{
-                hide: false,
+                hide: scrollbarHide||false,
             }}
             slidesPerView={slidesPerView || "auto"}
             spaceBetween={spaceBetween ?? 20}

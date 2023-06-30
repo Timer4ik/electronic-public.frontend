@@ -1,6 +1,8 @@
+import { CartIcon } from "@/components/Icons/CartIcon";
+import { HeartIcon } from "@/components/Icons/HeartIcon";
 import { fetchCategoryProperties } from "@/hooks/use-category-properties";
 import { fetchProductById, fetchProducts } from "@/hooks/use-products";
-import { Card, Stack, Typography } from "@/shared";
+import { Button, Card, Stack, Typography } from "@/shared";
 import { Slider } from "@/shared/Slider/Slider";
 import Image from "next/image";
 import Link from "next/link";
@@ -87,7 +89,7 @@ export default async function Product({ params }: Props) {
                             </Typography>
 
                             <Stack gap={1} flex="stretch-all">
-                                <Stack alignItems='center'
+                                {/* <Stack alignItems='center'
                                     justifyContent='center' gap={1} backgroundColor='standard'
                                     paddingY={1} paddingX={3} style={{
                                         borderRadius: "10px",
@@ -98,19 +100,15 @@ export default async function Product({ params }: Props) {
                                     }}>
                                     <Typography fontSize={5} fontWeight="bold" >Купить</Typography>
                                     <img width={20} height={20} src="/img/icons/cart.svg" alt="" />
-                                </Stack>
-                                <Stack alignItems='center'
-                                    justifyContent='center' gap={1} backgroundColor='standard'
-                                    style={{
-                                        borderRadius: "10px",
-                                        cursor: "pointer",
-                                        border: "1px solid rgb(19 54 116 / 55%)",
-                                        color: "#133674",
-                                        padding: "20px 14px"
-                                    }}>
-                                    <Typography fontSize={5} fontWeight="bold">Добавить в избранное</Typography>
-                                    <img width={20} height={20} src="/img/icons/heart.svg" alt="" />
-                                </Stack>
+                                </Stack> */}
+                                <Button paddingX={1} paddingY={4} size={3}>
+                                    <div>Купить</div>
+                                    <CartIcon/>
+                                </Button>
+                                <Button paddingX={1} paddingY={4} size={3}>
+                                    <div>Добавить в избранное</div>
+                                    <HeartIcon/>
+                                </Button>
                             </Stack>
                         </Stack>
                         <Stack marginTop={3}>
@@ -176,7 +174,7 @@ export default async function Product({ params }: Props) {
 
             <Stack gap={2}>
                 <Stack flexDirection="column" gap={2}
-                    style={{ flex:"0 0 25%" }}
+                    style={{ flex: "0 0 25%" }}
                 >
                     <Card >
                         <Stack flexDirection="column" gap={4}>

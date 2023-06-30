@@ -2,6 +2,8 @@ import { Container, Field, Stack, Typography } from '@/shared'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { AuthModal } from '../AuthModal/AuthModal'
+import { AuthLink } from './AuthLink'
 
 const inputStyle = {
     border: "none",
@@ -105,18 +107,12 @@ export const Header = () => {
                                     </Typography>
                                 </Stack>
                             </Link>
-                            <Link href={""}>
-                                <Stack gap={1} flexDirection='column' alignItems='center' justifyContent='center'>
-                                    <img src="/img/icons/login.svg" width={20} height={20} alt="" />
-                                    <Typography fontSize={3}>
-                                        Вход
-                                    </Typography>
-                                </Stack>
-                            </Link>
+                            <AuthLink/>
                         </Stack>
                     </Stack>
                 </Container>
             </Stack>
+            <AuthModal/>
         </>
     )
 }

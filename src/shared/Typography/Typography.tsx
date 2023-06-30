@@ -4,7 +4,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
     children: ReactNode
     fontSize?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
     fontWeight?: "bold" | "regular" | "light" | "medium"
-    color?: "blue" | "black" | "white"
+    color?: "blue" | "black" | "white" | "gray"
 }
 
 export const Typography: FC<Props> = ({ children, fontSize, fontWeight, color, ...props }) => {

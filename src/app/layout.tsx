@@ -11,7 +11,7 @@ import "swiper/css/grid";
 import "../styles/style.scss"
 import "../shared/styles/index.scss"
 
-import { Container, Stack } from '@/shared'
+import { Container, Modal, Stack } from '@/shared'
 
 export const metadata = {
   title: 'Create Next App',

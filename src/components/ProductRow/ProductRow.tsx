@@ -1,8 +1,10 @@
-import { Card, Checkbox, Stack, Typography } from '@/shared'
+import { Button, Card, Checkbox, Stack, Typography } from '@/shared'
 import { IProduct } from '@/types/models'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { FC } from 'react'
+import { CartIcon } from '../Icons/CartIcon'
+import { HeartIcon } from '../Icons/HeartIcon'
 
 type Props = {
     product: IProduct
@@ -83,29 +85,13 @@ export const ProductRow: FC<Props> = ({ product }) => {
                         {product.price.toLocaleString()} ₽
                     </Typography>
                     <Stack gap={1}>
-                        <Stack alignItems='center'
-                            justifyContent='center' gap={1} backgroundColor='standard'
-                            paddingY={1} paddingX={3} style={{
-                                borderRadius: "10px",
-                                cursor: "pointer",
-                                border: "1px solid rgb(19 54 116 / 10%)",
-                                color: "#133674",
-                                padding: "10px 14px"
-                            }}>
+                        <Button color='light-standard' fontWeight='medium'>
                             <Typography fontSize={4} >Купить</Typography>
-                            <img width={20} height={20} src="/img/icons/cart.svg" alt="" />
-                        </Stack>
-                        <Stack alignItems='center'
-                            justifyContent='center' gap={1} backgroundColor='standard'
-                            style={{
-                                borderRadius: "10px",
-                                cursor: "pointer",
-                                border: "1px solid rgb(19 54 116 / 10%)",
-                                color: "#133674",
-                                padding: "10px 14px"
-                            }}>
-                            <img width={20} height={20} src="/img/icons/heart.svg" alt="" />
-                        </Stack>
+                            <CartIcon/>
+                        </Button>
+                        <Button color='light-standard' fontWeight='medium' padding={2} paddingY={2}>
+                            <HeartIcon/>
+                        </Button>
                     </Stack>
                 </Stack>
             </Stack>
