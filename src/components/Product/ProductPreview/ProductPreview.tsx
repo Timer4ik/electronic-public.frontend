@@ -35,13 +35,7 @@ export const ProductPreview = async ({ product }:Props) => {
                     <Stack flexDirection="column" gap={3}>
                         {product?.product_photos?.map(item => {
                             return (
-                                <img style={{ minWidth: 40, minHeight: 40, width: 40, height: 40, objectFit: "contain" }}
-                                    src={item.file?.link} alt="" />
-                            )
-                        })}
-                        {product?.product_photos?.map(item => {
-                            return (
-                                <img style={{ minWidth: 40, minHeight: 40, width: 40, height: 40, objectFit: "contain" }}
+                                <img key={item.product_photo_id} style={{ minWidth: 40, minHeight: 40, width: 40, height: 40, objectFit: "contain" }}
                                     src={item.file?.link} alt="" />
                             )
                         })}
@@ -92,7 +86,7 @@ export const ProductPreview = async ({ product }:Props) => {
                     <Slider className="bottomside__products" slidesPerView={1} >
                         {products.data?.map(item => {
                             return (
-                                <ProductRow product={item}/>
+                                <ProductRow key={item.product_id} product={item}/>
                             )
                         })}
                     </Slider>

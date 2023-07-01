@@ -30,14 +30,6 @@ export interface IShopProduct {
 
     product?: IProduct
 }
-export interface IShop {
-    shop_id: number
-    file_id: number
-    address: string
-    cords: string
-    openFrom: string
-    openTo: string
-}
 
 export interface IFile {
     file_id: number
@@ -142,6 +134,19 @@ export interface ISlider {
     is_active: boolean
     start_active_dt?: any
     end_active_dt?: any
+
+    file?: IFile
+}
+
+
+export interface IShop {
+    shop_id: number
+    file_id?: number
+    address: string
+    cords: string
+    openFrom: string
+    openTo: string
+    is_active:boolean
 
     file?: IFile
 }

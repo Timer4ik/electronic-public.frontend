@@ -32,7 +32,7 @@ const Categories = async ({ params }: Props) => {
                     </Typography>
                     {breadCrumps.data.map((item) => {
                         return (
-                            <Typography fontSize={3}>
+                            <Typography key={item.category_id} fontSize={3}>
                                 <Link href={`/categories/${item.category_id}`}>
                                     {" > " + item.name}
                                 </Link>
@@ -51,7 +51,7 @@ const Categories = async ({ params }: Props) => {
                 <Grid columns="4" gap={1}>
                     {categories.data.map(category => {
                         return (
-                            <Link href={category.is_end ? `/products/${category.category_id}` : `/categories/${category.category_id}`}>
+                            <Link key={category.category_id} href={category.is_end ? `/products/${category.category_id}` : `/categories/${category.category_id}`}>
                                 <CategoryCard category={category} />
                             </Link>
                         )

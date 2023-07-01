@@ -1,16 +1,16 @@
 import { IProduct } from "@/types/models";
-import { useApi } from "./use-api";
+import { appApi } from "./use-api";
 import { AxiosRequestConfig } from "axios"
 
 export async function fetchProductById(id: number, options: AxiosRequestConfig<any>) {
-    const Api = useApi()
+    const Api = appApi()
 
     const response = await Api.getProductById(id,options)
 
     return response.data
 }
 export async function fetchProducts(options: AxiosRequestConfig<any>) {
-    const Api = useApi()
+    const Api = appApi()
 
     const response = await Api.getProducts(options)
 
@@ -19,7 +19,7 @@ export async function fetchProducts(options: AxiosRequestConfig<any>) {
 
 // export async function fetchProducts(options: AxiosRequestConfig<any>) {
 
-//     const Api = useApi()
+//     const Api = appApi()
 
 //     const response = await Api.getProducts(options)
 

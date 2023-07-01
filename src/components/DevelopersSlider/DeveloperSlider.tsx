@@ -11,7 +11,7 @@ export const DeveloperSlider: FC<Props> = ({ developers }) => {
         <Slider slidesPerView={4.1} scrollbarHide={true}>
             {developers?.map(developer => {
                 return (
-                    <img style={{
+                    <img key={developer.developer_id} style={{
                         objectFit: "cover",
                         height: "100px",
                         width: "100%",

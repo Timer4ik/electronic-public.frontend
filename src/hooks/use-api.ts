@@ -1,7 +1,7 @@
-import { ICategory, ICategoryProperty, IDeveloper, IProduct, ISlider, ResponseData } from "@/types/models"
+import { ICategory, ICategoryProperty, IDeveloper, IProduct, IShop, ISlider, ResponseData } from "@/types/models"
 import axios, { AxiosRequestConfig } from "axios"
 
-export const useApi = () => {
+export const appApi = () => {
 
     const API_URL = "http://localhost:5000"
 
@@ -34,5 +34,8 @@ export const useApi = () => {
         getCategoryProperties(options: AxiosRequestConfig<any> = {}) {
             return baseFetch<ResponseData<ICategoryProperty[]>>(`/api/category-properties`, options)
         },
+        getShops(options: AxiosRequestConfig<any> = {}) {
+            return baseFetch<ResponseData<IShop[]>>(`/api/shops`, options)
+        }
     }
 }

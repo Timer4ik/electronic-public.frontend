@@ -1,7 +1,7 @@
 import React, { FC, ReactElement, ReactNode } from 'react'
 // import "./Card.scss"
 
-type Props = {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
     children: ReactNode
     noPadding?: boolean
     noPaddingY?: boolean
@@ -23,12 +23,12 @@ export const BorderCard: FC<Props> = ({ noPadding, noPaddingY, children }) => {
     )
 }
 
-export const Card: FC<Props> = ({ noPadding, noPaddingY, children, padding, style }) => {
+export const Card: FC<Props> = ({ noPadding, noPaddingY, children, padding, style,...props }) => {
 
     const paddingStyle = padding ? " card-padding-" + padding : ""
 
     return (
-        <div className='card' style={style}>
+        <div className='card' style={style} {...props}>
             <div className={"card__body" + paddingStyle} style={
                 {
                     height:"100%",

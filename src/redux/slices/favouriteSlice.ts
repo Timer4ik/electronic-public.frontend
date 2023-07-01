@@ -30,13 +30,16 @@ const getFavouriteItems = (): IFavouriteItem[] => {
 const initialState: {
     favouriteItems: IFavouriteItem[]
 } = {
-    favouriteItems: getFavouriteItems()
+    favouriteItems: []
 }
 
 export const favouriteSlice = createSlice({
     name: 'favourite',
     initialState: initialState,
     reducers: {
+        initFavourite:(state) => {
+            state.favouriteItems = getFavouriteItems()
+        },
         addItemToFavourite: (state, action: PayloadAction<number>) => {
             let favourite: IFavouriteItem[] = []
 
@@ -64,6 +67,6 @@ export const favouriteSlice = createSlice({
     },
 })
 
-export const { addItemToFavourite, deleteItemFromFavourite } = favouriteSlice.actions
+export const { addItemToFavourite,initFavourite, deleteItemFromFavourite } = favouriteSlice.actions
 
 export default favouriteSlice.reducer

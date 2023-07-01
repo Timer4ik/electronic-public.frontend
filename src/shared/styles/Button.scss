@@ -15,6 +15,7 @@
     color: #133674;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     &.button-gap-0 {
         >* {
             margin-right: 0;
@@ -105,6 +106,11 @@
     }
     &-weight-medium {
         font-weight: 500;
+    }
+    &-color-only-border {
+        border: 1px solid rgb(19 54 116 / 10%);
+        color: #133674;
+        transition: all 0.1s linear;
     }
     &-color-standard {
         border: 1px solid rgba(19, 54, 116, 0.55);

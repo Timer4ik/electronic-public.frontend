@@ -35,7 +35,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
                         {product.price.toLocaleString()} ₽
                     </Typography>
                     <Grid columns='4-5' gap={1}>
-                        {!cartItems.find(item => item.id == product.product_id) ?
+                        {!cartItems?.find(item => item.id == product.product_id) ?
                             <Button
                                 onClick={() => dispatch(addItemToCart(product.product_id))}
                                 color='light-standard' paddingX={1} size={1}>
@@ -49,7 +49,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
                                 <CartIcon width={15} height={15} />
                             </Button>
                         }
-                        {!favouriteItems.find(item => item.id == product.product_id) ?
+                        {!favouriteItems?.find(item => item.id == product.product_id) ?
                             <Button onClick={() => dispatch(addItemToFavourite(product.product_id))} color='light-standard' padding={2} size={1}><HeartIcon width={15} height={15} /></Button>
                             :
                             <Button onClick={() => dispatch(deleteItemFromFavourite(product.product_id))} color='primary' padding={2} size={1}><HeartIcon width={15} height={15} /></Button>

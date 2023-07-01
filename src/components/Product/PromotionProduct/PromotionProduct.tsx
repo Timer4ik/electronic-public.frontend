@@ -6,8 +6,9 @@ import React, { FC } from 'react'
 import { HeartIcon } from '../../Icons/HeartIcon'
 import { CartIcon } from '../../Icons/CartIcon'
 import { IProduct } from '@/types/models'
-import { useCart } from '@/hooks/use-cart'
-import { useFavourite } from '@/hooks/use-favourite'
+import { useAppDispatch, useAppSelector } from '@/redux/hooks'
+import { addItemToCart, deleteItemFromCart } from '@/redux/slices/cartSlice'
+import { addItemToFavourite, deleteItemFromFavourite } from '@/redux/slices/favouriteSlice'
 
 interface Props {
     product: IProduct
@@ -15,8 +16,10 @@ interface Props {
 
 export const PromotionProduct: FC<Props> = ({ product }) => {
 
-    const { cartItems, addItemToCart, deleteItemFromCart } = useCart()
-    const { favouriteItems, addItemToFavourite, deleteItemFromFavourite } = useFavourite()
+    const dispatch = useAppDispatch()
+    const { cartItems } = useAppSelector(state => state.cart)
+    const { favouriteItems } = useAppSelector(state => state.favourite)
+
     return (
         <Card padding={2} style={{
             height: "100%"
@@ -44,7 +47,7 @@ export const PromotionProduct: FC<Props> = ({ product }) => {
                                     {product.name}
                                 </Link>
                             </Typography>
-                            
+
                         </Stack>
                         <Stack gap={1} alignItems="center" justifyContent="space-between">
                             <Typography fontSize={4} fontWeight="bold">{product.price.toLocaleString()} ₽</Typography>
@@ -55,19 +58,19 @@ export const PromotionProduct: FC<Props> = ({ product }) => {
                                 <img width={15} height={15} src="/img/icons/full-star.svg" alt="" />
                                 <img width={15} height={15} src="/img/icons/full-star.svg" alt="" />
                             </Stack>
-                            {!cartItems.find(item => item.id == product.product_id) ?
-                                <Button onClick={() => addItemToCart(product.product_id)} color="light-standard" padding={1} size={1}>
+                            {!cartItems?.find(item => item.id == product.product_id) ?
+                                <Button onClick={() => dispatch(addItemToCart(product.product_id))} color="light-standard" padding={1} size={1}>
                                     <CartIcon width={16} height={16} />
                                 </Button> :
-                                <Button onClick={() => deleteItemFromCart(product.product_id)} color="primary" padding={1} size={1}>
+                                <Button onClick={() => dispatch(deleteItemFromCart(product.product_id))} color="primary" padding={1} size={1}>
                                     <CartIcon width={16} height={16} />
                                 </Button>
                             }
-                            {!favouriteItems.find(item => item.id == product.product_id) ?
-                                <Button onClick={() => addItemToFavourite(product.product_id)} color="light-standard" padding={1} size={1}>
+                            {!favouriteItems?.find(item => item.id == product.product_id) ?
+                                <Button onClick={() => dispatch(addItemToFavourite(product.product_id))} color="light-standard" padding={1} size={1}>
                                     <HeartIcon width={16} height={16} />
                                 </Button> :
-                                <Button onClick={() => deleteItemFromFavourite(product.product_id)} color="primary" padding={1} size={1}>
+                                <Button onClick={() => dispatch(deleteItemFromFavourite(product.product_id))} color="primary" padding={1} size={1}>
                                     <HeartIcon width={16} height={16} />
                                 </Button>
                             }

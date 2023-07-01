@@ -90,7 +90,7 @@ export const ProductRow: FC<Props> = ({ product }) => {
                             }
                         </Typography>
                         <Stack gap={1}>
-                            {!cartItems.find(item => item.id == product.product_id) ?
+                            {!cartItems?.find(item => item.id == product.product_id) ?
 
                                 <Button onClick={() => dispatch(addItemToCart(product.product_id))} color='light-standard' size={1} padding={4} paddingY={1} fontWeight='medium'>
                                     <Typography fontSize={2} >Купить</Typography>
@@ -102,7 +102,7 @@ export const ProductRow: FC<Props> = ({ product }) => {
                                     <CartIcon width={16} height={16} />
                                 </Button>
                             }
-                            {!favouriteItems.find(item => item.id == product.product_id) ?
+                            {!favouriteItems?.find(item => item.id == product.product_id) ?
 
                                 <Button onClick={() => dispatch(addItemToFavourite(product.product_id))} color='light-standard' size={1} padding={2} paddingY={1} fontWeight='medium'>
                                     <HeartIcon width={16} height={16} />

@@ -26,7 +26,7 @@ export const Aside = async () => {
                     </Stack>
                     {categories?.data?.map(category => {
                         return (
-                            <Stack gap={1} alignItems='center'>
+                            <Stack key={category.category_id} gap={1} alignItems='center'>
                                 <img width={20} height={20} src='/img/icons/icon.svg' />
                                 <Typography fontSize={3}>
                                     <Link href={"/categories/" + category.category_id}>

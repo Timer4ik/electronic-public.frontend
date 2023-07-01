@@ -4,15 +4,16 @@ import { ISlider } from '@/types/models'
 import React, { FC } from 'react'
 
 interface Props {
-    sliders:ISlider[]
+    sliders: ISlider[]
 }
 
-export const PromotionSlider:FC<Props> = ({sliders}) => {
+export const PromotionSlider: FC<Props> = ({ sliders }) => {
     return (
         <Slider spaceBetween={0}>
             {sliders.map(slider => {
                 return (
                     <Stack
+                        key={slider.slider_id}
                         flexDirection="column"
                         justifyContent="space-between" style={{
                             width: "100%",

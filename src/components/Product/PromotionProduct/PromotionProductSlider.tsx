@@ -10,7 +10,7 @@ interface Props {
 export const PromotionProductSlider:FC<Props> = ({products}) => {
     return (
         <Slider className="bottomside__products" slidesPerView={1} >
-            {products?.map(item => <PromotionProduct product={item} />)}
+            {products?.map(item => <PromotionProduct key={item.product_id} product={item} />)}
         </Slider>
     )
 }

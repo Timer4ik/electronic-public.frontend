@@ -28,15 +28,18 @@ const getCartItems = (): ICartItem[] => {
 }
 
 const initialState: {
-    cartItems: ICartItem[]
+    cartItems?: ICartItem[]
 } = {
-    cartItems: getCartItems()
+    cartItems: []
 }
 
 export const cartSlice = createSlice({
     name: 'cart',
     initialState: initialState,
     reducers: {
+        initCart:(state) =>{
+            state.cartItems = getCartItems()
+        },
         addItemToCart: (state, action: PayloadAction<number>) => {
             let cart: ICartItem[] = []
 
@@ -90,6 +93,6 @@ export const cartSlice = createSlice({
     },
 })
 
-export const { addItemToCart, decrementCartItemAmount, deleteItemFromCart, incrementCartItemAmount } = cartSlice.actions
+export const { addItemToCart,initCart, decrementCartItemAmount, deleteItemFromCart, incrementCartItemAmount } = cartSlice.actions
 
 export default cartSlice.reducer

@@ -1,8 +1,8 @@
-import { useApi } from "./use-api";
+import { appApi } from "./use-api";
 import { AxiosRequestConfig } from "axios"
 
 export async function fetchCategoryProperties(options: AxiosRequestConfig<any>) {
-    const Api = useApi()
+    const Api = appApi()
 
     const response = await Api.getCategoryProperties(options)
     

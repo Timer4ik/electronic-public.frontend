@@ -4,6 +4,7 @@ import { DeveloperSlider } from "@/components/DevelopersSlider/DeveloperSlider";
 import { ProductCardSlider } from "@/components/Product/ProductCard/ProductCardSlider";
 import { PromotionProductSlider } from "@/components/Product/PromotionProduct/PromotionProductSlider";
 import { PromotionSlider } from "@/components/PromotionSlider/PromotionSlider";
+import { ShopLocation } from "@/components/ShopLocation/ShopLocation";
 import { fetchCategories } from "@/hooks/use-categories";
 import { fetchDevelopers } from "@/hooks/use-developers";
 import { fetchProducts } from "@/hooks/use-products";
@@ -71,13 +72,15 @@ export default async function Main() {
           <Grid gap={1} columns="4">
             {categories.data.map(category => {
               return (
-                <Link href={`/categories/${category.category_id}`}>
+                <Link key={category.category_id} href={`/categories/${category.category_id}`}>
                   <CategoryCard category={category} />
                 </Link>
               )
             })}
           </Grid>
         </Stack>
+
+        <ShopLocation />
 
         <Stack flexDirection='column' gap={3}>
           <Typography fontSize={6} color="gray" fontWeight='bold'>Недавно просмотренные товары</Typography>

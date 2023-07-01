@@ -94,7 +94,7 @@ export default function Products({ params }: Props) {
           </Typography>
           {breadCrumps.map((item) => {
             return (
-              <Typography fontSize={3}>
+              <Typography key={item.category_id} fontSize={3}>
                 <Link href={`/categories/${item.category_id}`}>
                   {" > " + item.name}
                 </Link>
@@ -117,12 +117,12 @@ export default function Products({ params }: Props) {
             <Stack flexDirection='column' gap={3}>
               {(categoryProperties?.data)?.map(item => {
                 return (
-                  <Stack flexDirection='column' gap={1}>
+                  <Stack key={item.category_property_id} flexDirection='column' gap={1}>
                     <Typography fontSize={2} fontWeight='medium'>{item.name || item?.property?.name}</Typography>
                     <Stack flexDirection='column' gap={1}>
                       {item.property?.property_values?.map(item => {
                         return (
-                          <Checkbox label={item.name} type='checkbox' onClick={() => addPropValue(item.property_value_id)} />
+                          <Checkbox key={item.property_value_id} label={item.name} type='checkbox' onClick={() => addPropValue(item.property_value_id)} />
                         )
                       })}
                     </Stack>
@@ -136,7 +136,7 @@ export default function Products({ params }: Props) {
         <Stack flexDirection='column' className="products__list" gap={1}>
           {products?.data.map(product => {
             return (
-              <ProductRow product={product} />
+              <ProductRow key={product.product_id} product={product} />
             )
           })}
         </Stack>

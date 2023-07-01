@@ -1,10 +1,10 @@
-import { ShopInfoLocation, ShopInfoStaff } from "@/components/shop-info";
+import { ShopLocation } from "@/components/ShopLocation/ShopLocation";
+import { Container } from "@/shared";
 
 export default function ShopInfo() {
     return (
-        <>
-            <ShopInfoLocation />
-            <ShopInfoStaff />
-        </>
+        <Container>
+            <ShopLocation />
+        </Container>
     )
 }

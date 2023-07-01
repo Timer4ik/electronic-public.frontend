@@ -1,5 +1,6 @@
 'use client'
 import { ProductCartRow } from '@/components/Product/ProductCartRow/ProductCartRow'
+import { ProductFavouriteRow } from '@/components/Product/ProductFavouriteRow/ProductFavouriteRow'
 import { fetchProducts } from '@/hooks/use-products'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { deleteItemFromFavourite } from '@/redux/slices/favouriteSlice'
@@ -11,14 +12,13 @@ interface IProductWithSelection extends IProduct {
     isSelected?: boolean
 }
 
-const CartPage = () => {
+const FavouritePage = () => {
 
     const dispatch = useAppDispatch()
-    const [selectAll, setSelectAll] = useState(false)
     const [orderByAsc, setOrderByAsc] = useState(true)
+    const [selectAll, setSelectAll] = useState(false)
 
-
-    const { cartItems } = useAppSelector(state => state.cart)
+    const { favouriteItems } = useAppSelector(state => state.favourite)
 
     const [products, setProducts] = useState<ResponseData<IProductWithSelection[]>>()
 
@@ -27,12 +27,12 @@ const CartPage = () => {
             let prods = await fetchProducts({
                 params: {
                     extend: "file",
-                    "filter[product_id]": cartItems?.map(item => item.id)
+                    "filter[product_id]": favouriteItems?.map(item => item.id)
                 }
             })
             setProducts(prods)
         })()
-    }, [cartItems])
+    }, [favouriteItems])
 
     const toggleSelectAll = (isSelected: boolean) => {
         setProducts(
@@ -62,21 +62,6 @@ const CartPage = () => {
         )
     }
 
-    const deleteSelected = () => {
-
-
-        setProducts(
-            {
-                count: products?.count || 0,
-                message: products?.message || "",
-                data: products?.data.filter(product => {
-                    dispatch(deleteItemFromFavourite(product.product_id))
-                    return !product.isSelected
-                }) || []
-            }
-        )
-    }
-
     const orderedProducts = useMemo(() => {
 
         if (!products?.data.length)
@@ -92,14 +77,29 @@ const CartPage = () => {
 
     }, [orderByAsc, products, selectAll])
 
+    const deleteSelected = () => {
+
+
+        setProducts(
+            {
+                count: products?.count || 0,
+                message: products?.message || "",
+                data: products?.data.filter(product => {
+                    dispatch(deleteItemFromFavourite(product.product_id))
+                    return !product.isSelected
+                }) || []
+            }
+        )
+    }
+
+
     return (
         <Container>
             <Stack flexDirection='column' gap={1}>
                 <Stack alignItems='center' gap={2}>
-                    <Typography color='primary' fontSize={8} fontWeight='bold'>Корзина</Typography>
-                    <Typography fontSize={2} fontWeight='bold'>{cartItems?.length} товаров</Typography>
+                    <Typography color='primary' fontSize={8} fontWeight='bold'>Избранное</Typography>
                 </Stack>
-                {cartItems?.length ? <Grid columns='5-7' gap={1} >
+                {favouriteItems?.length ? <Grid gap={1} >
                     <Stack flexDirection='column' gap={2}>
                         <Card noPadding>
                             <Stack padding={2} flexDirection='column' gap={2}>
@@ -123,39 +123,13 @@ const CartPage = () => {
                             </Stack>
                         </Card>
                         <Stack flexDirection='column' gap={2}>
-                            {orderedProducts?.map(product => <ProductCartRow key={product.product_id} toggleSelected={toggleSelected} product={product} />)}
+                            {orderedProducts?.map(product =>
+                                <ProductFavouriteRow key={product.product_id} toggleSelected={toggleSelected} product={product} />)}
                         </Stack>
-                    </Stack>
-                    <Stack flexDirection='column' gap={2}>
-                        <Card noPadding>
-                            <Stack padding={5} paddingX={3} flexDirection='column' gap={3}>
-                                <Typography fontSize={6} fontWeight='bold'>Условия заказа</Typography>
-                                <Checkbox label='Получить со склада' />
-                                {!!products?.data.filter(item => item.isSelected).length &&
-                                    <Stack flexDirection='column'>
-                                        <Typography color='gray' fontSize={2}>Итого:</Typography>
-                                        <Stack justifyContent='space-between'>
-                                            <Typography fontSize={5} fontWeight='bold'>{products?.data.filter(item => item.isSelected).length} товаров</Typography>
-                                            <Typography fontSize={5} fontWeight='bold'>{products?.data.reduce((acc, prod) => {
-                                                if (prod.isSelected) {
-                                                    return prod.price + acc
-                                                }
-                                                return acc
-                                            }, 0).toLocaleString()} ₽</Typography>
-                                        </Stack>
-                                    </Stack>}
-                                {products?.data.filter(item => item.isSelected).length
-                                    ?
-                                    <Button color='light-standard' fontWeight='regular' size={2}>Перейти к оформлению</Button>
-                                    :
-                                    <Typography fontSize={4} fontWeight='medium'>Выберите товары для покупки</Typography>
-                                }
-                            </Stack>
-                        </Card>
                     </Stack>
                 </Grid> :
                     <Card>
-                        <Typography fontSize={7} fontWeight='medium'>Товаров в корзине нет</Typography>
+                        <Typography fontSize={6} fontWeight='medium'>Избранных товаров нет</Typography>
                     </Card>
                 }
             </Stack>
@@ -163,4 +137,4 @@ const CartPage = () => {
     )
 }
 
-export default CartPage
+export default FavouritePage

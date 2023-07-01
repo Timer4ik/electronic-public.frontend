@@ -1,10 +1,10 @@
 'use client';
-import React, { FC, ReactNode } from 'react'
+import React, { FC, ReactNode, forwardRef, useEffect, useState } from 'react'
 import { Navigation, Scrollbar } from 'swiper';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperRef, SwiperSlide, useSwiper, SwiperProps } from 'swiper/react';
 
-type Props = {
+interface Props extends SwiperProps {
     children?: ReactNode
     className?: string
     slidesPerView?: number | "auto"
@@ -13,18 +13,19 @@ type Props = {
     scrollbarHide?: boolean
 }
 
-export const Slider: FC<Props> = ({ children, scrollbarHide, className, slidesPerView, style, spaceBetween }) => {
+export const Slider: FC<Props> = ({ children, scrollbarHide, className, slidesPerView, style, spaceBetween, ...props }) => {
 
     return (
         <Swiper
             className={"slider " + className}
             scrollbar={{
-                hide: scrollbarHide||false,
+                hide: scrollbarHide || false,
             }}
             slidesPerView={slidesPerView || "auto"}
             spaceBetween={spaceBetween ?? 20}
             modules={[Scrollbar, Navigation]}
             style={style}
+            {...props}
         >
             {React.Children.map(children, (child, idx) => {
                 return (

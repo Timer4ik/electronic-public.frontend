@@ -12,7 +12,7 @@ export const ProductCardSlider:FC<Props> = ({products}) => {
         <Slider slidesPerView={5} >
             {products?.map(product => {
                 return (
-                    <ProductCard product={product} />
+                    <ProductCard key={product.product_id} product={product} />
                 )
             })}
         </Slider>

@@ -1,3 +1,5 @@
+'use client'
+
 export { Stack } from "./Stack/Stack"
 export { Card } from "./Card/Card"
 export { Typography } from "./Typography/Typography"

@@ -29,7 +29,7 @@ export default async function Categories() {
                 <Grid gap={1} columns="4">
                     {categories.data.map(category => {
                         return (
-                            <Link href={category.is_end ? `/products/${category.category_id}` : `/categories/${category.category_id}`}>
+                            <Link key={category.category_id} href={category.is_end ? `/products/${category.category_id}` : `/categories/${category.category_id}`}>
                                 <CategoryCard category={category} />
                             </Link>
                         )

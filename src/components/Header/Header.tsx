@@ -1,5 +1,6 @@
+'use client'
+
 import { Container, Field, Stack, Typography } from '@/shared'
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { AuthLink } from './AuthLink'
@@ -90,7 +91,7 @@ export const Header = () => {
                                     </Typography>
                                 </Stack>
                             </Link>
-                            <Link href={""}>
+                            <Link href={"/favourite"}>
                                 <Stack gap={1} flexDirection='column' alignItems='center' justifyContent='center'>
                                     <img src="/img/icons/heart.svg" width={20} height={20} alt="" />
                                     <Typography fontSize={3}>

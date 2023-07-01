@@ -1,10 +1,10 @@
 import { getCategoryListFromTree } from "@/utils/getCategoryListFromTree";
-import { useApi } from "./use-api";
+import { appApi } from "./use-api";
 import { AxiosRequestConfig } from "axios"
 import { ICategory } from "@/types/models";
 
 export async function fetchCategoryById(id: number, options: AxiosRequestConfig<any>) {
-    const Api = useApi()
+    const Api = appApi()
 
     const response = await Api.getCategoryById(id, options)
 
@@ -12,7 +12,7 @@ export async function fetchCategoryById(id: number, options: AxiosRequestConfig<
 }
 
 export async function fetchCategories(options: AxiosRequestConfig<any>) {
-    const Api = useApi()
+    const Api = appApi()
 
     const response = await Api.getCategories(options)
 

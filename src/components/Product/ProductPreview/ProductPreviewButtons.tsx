@@ -19,7 +19,7 @@ export const ProductPreviewButtons: FC<Props> = ({ id }) => {
 
     return (
         <Stack gap={1} flex="stretch-all">
-            {!cartItems.find(item => item.id == id) ?
+            {!cartItems?.find(item => item.id == id) ?
                 <Button onClick={() => dispatch(addItemToCart(id))} paddingX={1} paddingY={4} size={3}>
                     <div>Купить</div>
                     <CartIcon />
@@ -29,7 +29,7 @@ export const ProductPreviewButtons: FC<Props> = ({ id }) => {
                     <CartIcon />
                 </Button>
             }
-            {!favouriteItems.find(item => item.id == id) ?
+            {!favouriteItems?.find(item => item.id == id) ?
                 <Button onClick={() => dispatch(addItemToFavourite(id))} paddingX={1} paddingY={4} size={3}>
                     <div>Добавить в избранное</div>
                     <HeartIcon />

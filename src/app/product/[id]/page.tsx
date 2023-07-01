@@ -36,7 +36,7 @@ export default async function Product({ params }: Props) {
                     </Typography>
                     {breadCrumps.data.map((item) => {
                         return (
-                            <Typography fontSize={3}>
+                            <Typography fontSize={3} key={item.category_id}>
                                 <Link href={`/categories/${item.category_id}`}>
                                     {" > " + item.name}
                                 </Link>
@@ -104,7 +104,7 @@ export default async function Product({ params }: Props) {
                                     <Stack flexDirection="column" gap={1}>
                                         {product?.data.product_property_values?.map(item => {
                                             return (
-                                                <Stack justifyContent="space-between" paddingY={2} style={{
+                                                <Stack key={item.product_property_value_id} justifyContent="space-between" paddingY={2} style={{
                                                     borderBottom: "2px dotted #80808036",
                                                     width: "100%",
                                                 }}>

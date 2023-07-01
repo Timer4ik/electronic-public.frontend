@@ -1,4 +1,3 @@
-'use client'
 
 import { useAppDispatch } from '@/redux/hooks'
 import { login } from '@/redux/slices/authSlice'

@@ -8,7 +8,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode
     size?: 1 | 2 | 3 | 4 | 5
     fontWeight?: "bold" | "regular" | "light" | "medium"
-    color?: "standard" | "primary" | "light-standard"
+    color?: "standard" | "primary" | "light-standard" | "only-border"
     padding?: 1 | 2 | 3 | 4 | 5
     paddingY?: 1 | 2 | 3 | 4 | 5
     paddingX?: 1 | 2 | 3 | 4 | 5 | 6

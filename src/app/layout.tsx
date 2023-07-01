@@ -1,7 +1,4 @@
 import { Header } from '@/components/Header/Header'
-import { Footer } from '@/components/Footer/Footer'
-import { Aside } from '@/components/Aside/Aside'
-
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -11,7 +8,6 @@ import "swiper/css/grid";
 import "../styles/style.scss"
 import "../shared/styles/index.scss"
 
-import { Container, Modal, Stack } from '@/shared'
 import Providers from '@/redux/provider';
 
 export const metadata = {
@@ -41,10 +37,8 @@ export default function RootLayout({
 
       <body>
         <Providers>
-          <Stack flexDirection='column'>
             <Header />
             {children}
-          </Stack>
         </Providers>
       </body>
 
