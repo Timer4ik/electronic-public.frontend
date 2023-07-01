@@ -1,4 +1,4 @@
-import { ICategory, ICategoryProperty, IDeveloper, IProduct, ISlider, ReponseData } from "@/types/models"
+import { ICategory, ICategoryProperty, IDeveloper, IProduct, ISlider, ResponseData } from "@/types/models"
 import axios, { AxiosRequestConfig } from "axios"
 
 export const useApi = () => {
@@ -14,25 +14,25 @@ export const useApi = () => {
 
     return {
         getSliders(options: AxiosRequestConfig<any> = {}) {
-            return baseFetch<ReponseData<ISlider[]>>("/api/sliders", options)
+            return baseFetch<ResponseData<ISlider[]>>("/api/sliders", options)
         },
         getCategories(options: AxiosRequestConfig<any> = {}) {
-            return baseFetch<ReponseData<ICategory[]>>(`/api/categories`, options)
+            return baseFetch<ResponseData<ICategory[]>>(`/api/categories`, options)
         },
         getCategoryById(id:number, options: AxiosRequestConfig<any> = {}) {
-            return baseFetch<ReponseData<ICategory>>(`/api/categories/${id}`, options)
+            return baseFetch<ResponseData<ICategory>>(`/api/categories/${id}`, options)
         },
         getProducts(options: AxiosRequestConfig<any> = {}) {
-            return baseFetch<ReponseData<IProduct[]>>(`/api/products`, options)
+            return baseFetch<ResponseData<IProduct[]>>(`/api/products`, options)
         },
         getDevelopers(options: AxiosRequestConfig<any> = {}) {
-            return baseFetch<ReponseData<IDeveloper[]>>(`/api/developers`, options)
+            return baseFetch<ResponseData<IDeveloper[]>>(`/api/developers`, options)
         },
         getProductById(id: number, options: AxiosRequestConfig<any> = {}) {
-            return baseFetch<ReponseData<IProduct>>(`/api/products/${id}`, options)
+            return baseFetch<ResponseData<IProduct>>(`/api/products/${id}`, options)
         },
         getCategoryProperties(options: AxiosRequestConfig<any> = {}) {
-            return baseFetch<ReponseData<ICategoryProperty[]>>(`/api/category-properties`, options)
+            return baseFetch<ResponseData<ICategoryProperty[]>>(`/api/category-properties`, options)
         },
     }
 }

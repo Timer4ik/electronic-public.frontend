@@ -1,6 +1,6 @@
 import { CategoryCard } from "@/components/CategoryCard/CategoryCard";
 import { fetchCategories } from "@/hooks/use-categories";
-import { Stack, Typography } from "@/shared";
+import { Grid, Stack, Typography } from "@/shared";
 import Link from "next/link";
 
 
@@ -14,29 +14,27 @@ export default async function Categories() {
     })
     return (
         <>
-            <div style={{ display: "flex" }}>
-                <div style={{ display: "flex" }}>
-                    <pre>
-                        <Typography fontWeight="bold" fontSize={5}><Link href={`/`}>Главная</Link></Typography>
-                        <Typography fontSize={3}><Link href={`/categories`}> {">"} Каталог товаров</Link></Typography>
-                    </pre>
-                </div>
-            </div>
+            <Stack>
+                <pre>
+                    <Typography fontWeight="bold" fontSize={5}>
+                        <Link href={`/`}>Главная</Link>
+                    </Typography>
+                    <Typography fontSize={3}>
+                        <Link href={`/categories`}>{" > "}Каталог товаров</Link>
+                    </Typography>
+                </pre>
+            </Stack>
             <Stack flexDirection='column' gap={3}>
                 <Typography fontSize={8} fontWeight='bold'>Каталог товаров</Typography>
-                <div style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr 1fr 1fr",
-                    gap: "20px"
-                }}>
+                <Grid gap={1} columns="4">
                     {categories.data.map(category => {
                         return (
-                            <Link href={`/categories/${category.category_id}`}>
+                            <Link href={category.is_end ? `/products/${category.category_id}` : `/categories/${category.category_id}`}>
                                 <CategoryCard category={category} />
                             </Link>
                         )
                     })}
-                </div>
+                </Grid>
             </Stack>
         </>
     )

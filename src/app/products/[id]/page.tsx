@@ -1,10 +1,11 @@
 "use client"
-import { ProductRow } from '@/components/ProductRow/ProductRow'
+import { ProductRow } from '@/components/Product/ProductRow/ProductRow'
 import { fetchCategoryBreadCrumps } from '@/hooks/use-categories'
 import { fetchCategoryProperties } from '@/hooks/use-category-properties'
 import { fetchProducts } from '@/hooks/use-products'
-import { Card, Checkbox, Field, Stack, Typography } from '@/shared'
-import { ICategory, ICategoryProperty, IProduct, ReponseData } from '@/types/models'
+import { Card, Checkbox, Field, Grid, Stack, Typography } from '@/shared'
+import useDebouncedValue from '@/shared/hooks/useDebounce'
+import { ICategory, ICategoryProperty, IProduct, ResponseData } from '@/types/models'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
@@ -15,10 +16,12 @@ interface Props {
 }
 export default function Products({ params }: Props) {
 
+  const [searchValue, setSearchValue] = useState("")
+
   const [breadCrumps, setBreadCrumps] = useState<ICategory[]>([])
   const [currentCategory, setCurrentCategory] = useState<ICategory>()
 
-  const [categoryProperties, setCategotyProperties] = useState<ReponseData<ICategoryProperty[]>>()
+  const [categoryProperties, setCategotyProperties] = useState<ResponseData<ICategoryProperty[]>>()
 
   useEffect(() => {
     (async () => {
@@ -45,7 +48,7 @@ export default function Products({ params }: Props) {
     })()
   }, [])
 
-  const [products, setProducts] = useState<ReponseData<IProduct[]>>()
+  const [products, setProducts] = useState<ResponseData<IProduct[]>>()
   const [selectedPropertyValues, setSelectedPropertyValues] = useState<number[]>([])
 
   const addPropValue = (property_value_id: number) => {
@@ -58,12 +61,16 @@ export default function Products({ params }: Props) {
     setSelectedPropertyValues((prev) => [...prev, property_value_id])
   }
 
+  const debouncedValue = useDebouncedValue(searchValue, 1000)
+  const debouncedSelectedProperty = useDebouncedValue(selectedPropertyValues, 1000)
+
   const refetchProducts = async () => {
 
     let prods = await fetchProducts({
       params: {
         "filter[is_active]": true,
         "filter[category_id]": params?.id,
+        "like": debouncedValue,
         extend: "file,shop_products",
         property_value_id: selectedPropertyValues
       }
@@ -72,50 +79,50 @@ export default function Products({ params }: Props) {
     setProducts(prods)
   }
 
-
   useEffect(() => {
     refetchProducts()
-  }, [selectedPropertyValues])
+  }, [debouncedSelectedProperty, debouncedValue])
 
   return (
     <Stack flexDirection='column' gap={3}>
-      {breadCrumps && <div style={{ display: "flex" }}>
-        <div style={{ display: "flex" }}>
-          <pre>
-            <Typography fontSize={3}><Link href={`/categories`}>Каталог</Link></Typography>
-            {breadCrumps.map((item) => {
-              return (
-                <Typography fontSize={3}><Link href={`/categories/${item.category_id}`}>{" > " + item.name}</Link></Typography>
-              )
-            })}
-            <Typography fontWeight="bold" fontSize={5}>
-              <Link href={`/products/${currentCategory?.category_id}`}>{" > " + currentCategory?.name}</Link>
-            </Typography>
-          </pre>
-        </div>
-      </div>}
-      <div className="product__title big-title">Игровые компьютеры ({products?.count} товаров)</div>
-      <Stack style={{ display: "grid", gridTemplateColumns: "3fr 10fr", gap: 20 }}>
+      {breadCrumps && <Stack>
+        <pre>
+          <Typography fontSize={3}>
+            <Link href={`/categories`}>
+              Каталог
+            </Link>
+          </Typography>
+          {breadCrumps.map((item) => {
+            return (
+              <Typography fontSize={3}>
+                <Link href={`/categories/${item.category_id}`}>
+                  {" > " + item.name}
+                </Link>
+              </Typography>
+            )
+          })}
+          <Typography fontWeight="bold" fontSize={5}>
+            <Link href={`/products/${currentCategory?.category_id}`}>{" > " + currentCategory?.name}</Link>
+          </Typography>
+        </pre>
+      </Stack>}
+      <Typography fontSize={7} fontWeight='bold'>{currentCategory?.name} {products?.count} товаров</Typography>
+      <Grid gap={1} columns='1-5'>
         <Stack flexDirection='column' gap={1}>
           <Stack flexDirection='column' gap={1}>
             <Typography fontSize={3} fontWeight='medium'>Поиск по названию товара</Typography>
-            <Field placeholder='Поиск по названию' />
+            <Field value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder='Поиск по названию' />
           </Stack>
           <Card padding={2} >
             <Stack flexDirection='column' gap={3}>
               {(categoryProperties?.data)?.map(item => {
                 return (
                   <Stack flexDirection='column' gap={1}>
-                    <div>
-                      <Typography fontSize={2} fontWeight='medium'>{item.name || item?.property?.name}</Typography>
-                    </div>
+                    <Typography fontSize={2} fontWeight='medium'>{item.name || item?.property?.name}</Typography>
                     <Stack flexDirection='column' gap={1}>
                       {item.property?.property_values?.map(item => {
                         return (
-                          <label>
-                            <Checkbox label={item.name} type='checkbox' onClick={() => addPropValue(item.property_value_id)} />
-                            {/* <Typography style={{ padding: 0, margin: 0 }}>{item.name}</Typography> */}
-                          </label>
+                          <Checkbox label={item.name} type='checkbox' onClick={() => addPropValue(item.property_value_id)} />
                         )
                       })}
                     </Stack>
@@ -133,7 +140,7 @@ export default function Products({ params }: Props) {
             )
           })}
         </Stack>
-      </Stack>
+      </Grid>
     </Stack >
   )
 }

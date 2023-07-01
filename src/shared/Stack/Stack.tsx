@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 
-interface Props extends Pick<React.HTMLAttributes<HTMLDivElement>, "style"> {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
     className?: string
     children: React.ReactNode
     flexDirection?: "column" | "row"

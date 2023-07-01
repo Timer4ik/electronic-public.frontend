@@ -12,6 +12,7 @@ import "../styles/style.scss"
 import "../shared/styles/index.scss"
 
 import { Container, Modal, Stack } from '@/shared'
+import Providers from '@/redux/provider';
 
 export const metadata = {
   title: 'Create Next App',
@@ -39,14 +40,12 @@ export default function RootLayout({
       </head>
 
       <body>
-
-        <Stack flexDirection='column'>
-          <Header />
-
-          {children}
-
-        </Stack>
-
+        <Providers>
+          <Stack flexDirection='column'>
+            <Header />
+            {children}
+          </Stack>
+        </Providers>
       </body>
 
     </html>

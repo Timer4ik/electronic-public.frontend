@@ -2,7 +2,6 @@ import { Container, Field, Stack, Typography } from '@/shared'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { AuthModal } from '../AuthModal/AuthModal'
 import { AuthLink } from './AuthLink'
 
 const inputStyle = {
@@ -99,7 +98,7 @@ export const Header = () => {
                                     </Typography>
                                 </Stack>
                             </Link>
-                            <Link href={""}>
+                            <Link href={"/cart"}>
                                 <Stack gap={1} flexDirection='column' alignItems='center' justifyContent='center'>
                                     <img src="/img/icons/cart.svg" width={20} height={20} alt="" />
                                     <Typography fontSize={3}>
@@ -112,7 +111,6 @@ export const Header = () => {
                     </Stack>
                 </Container>
             </Stack>
-            <AuthModal/>
         </>
     )
 }

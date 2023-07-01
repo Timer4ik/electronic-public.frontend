@@ -7,14 +7,14 @@ export const Aside = async () => {
 
     const categories = await fetchCategories({
         params: {
-            "filter[parent_id]": 0
+            "filter[parent_id]": [0,1,2,3],
         }
     })
 
     return (
-        <div style={{ position: "sticky",flex:"0 0 18%" }}>
+        <div style={{ position: "sticky", flex: "0 0 22%" }}>
             <nav>
-                <Stack gap={5} flexDirection='column'>
+                <Stack gap={2} flexDirection='column'>
                     <Stack backgroundColor='standard' >
                         <Typography fontSize={8} fontWeight='bold'>
                             <Link
@@ -26,14 +26,14 @@ export const Aside = async () => {
                     </Stack>
                     {categories?.data?.map(category => {
                         return (
-                            <Link href={"/categories/" + category.category_id}>
-                                <Stack gap={1} alignItems='center'>
-                                    <img width={20} height={20} src='/img/icons/icon.svg' />
-                                    <Typography fontSize={3}>
+                            <Stack gap={1} alignItems='center'>
+                                <img width={20} height={20} src='/img/icons/icon.svg' />
+                                <Typography fontSize={3}>
+                                    <Link href={"/categories/" + category.category_id}>
                                         {category.name}
-                                    </Typography>
-                                </Stack>
-                            </Link>
+                                    </Link>
+                                </Typography>
+                            </Stack>
                         )
                     })}
 

@@ -1,8 +1,10 @@
 import { CartIcon } from "@/components/Icons/CartIcon";
 import { HeartIcon } from "@/components/Icons/HeartIcon";
+import { ProductPreview } from "@/components/Product/ProductPreview/ProductPreview";
+import { fetchCategoryBreadCrumps } from "@/hooks/use-categories";
 import { fetchCategoryProperties } from "@/hooks/use-category-properties";
 import { fetchProductById, fetchProducts } from "@/hooks/use-products";
-import { Button, Card, Stack, Typography } from "@/shared";
+import { Button, Card, Grid, Stack, Typography } from "@/shared";
 import { Slider } from "@/shared/Slider/Slider";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,161 +23,42 @@ export default async function Product({ params }: Props) {
         }
     })
 
-    const products = await fetchProducts({
-        params: {
-            limit: 3,
-            "filter[category_id]": product.data.category_id,
-            extend: "file"
-        }
-    })
-
-    const availableCount = product?.data?.shop_products?.filter(item => !item.is_sold && item.is_active).length
+    const breadCrumps = await fetchCategoryBreadCrumps(product.data.category_id)
 
     return (
         <Stack flexDirection="column" gap={2}>
-            <Card noPadding>
-                <Stack flex="same-all">
-                    <Stack padding={5} gap={2}>
-                        <Stack flexDirection="column" gap={3}>
-                            {product?.data?.product_photos?.map(item => {
-                                return (
-                                    <img style={{ minWidth: 40, minHeight: 40, width: 40, height: 40, objectFit: "contain" }}
-                                        src={item.file?.link} alt="" />
-                                )
-                            })}
-                            {product?.data?.product_photos?.map(item => {
-                                return (
-                                    <img style={{ minWidth: 40, minHeight: 40, width: 40, height: 40, objectFit: "contain" }}
-                                        src={item.file?.link} alt="" />
-                                )
-                            })}
-                        </Stack>
-                        <Stack style={{
-                        }}>
-                            <img style={{
-                                width: "100%",
-                                height: "100%",
-                                objectFit: "contain"
-                            }} src={product.data.file?.link} alt="" />
-                        </Stack>
-                    </Stack>
-                    <Stack padding={5} gap={1} flexDirection="column" >
-                        <Stack flexDirection="column" gap={3}>
-                            <Typography fontSize={8}>
-                                {product?.data?.name}
+            <Stack>
+                <pre>
+                    <Typography fontSize={3}>
+                        <Link href={`/categories`}>
+                            Каталог
+                        </Link>
+                    </Typography>
+                    {breadCrumps.data.map((item) => {
+                        return (
+                            <Typography fontSize={3}>
+                                <Link href={`/categories/${item.category_id}`}>
+                                    {" > " + item.name}
+                                </Link>
                             </Typography>
-                            <Stack gap={3}>
-                                <Typography fontSize={8} fontWeight="bold">
-                                    {product?.data?.price.toLocaleString()} ₽
-                                </Typography>
-                                <Stack gap={1} alignItems="center">
-                                    <Image width={38} height={35} src="/img/icons/full-star.svg" alt="" />
-                                    <Image width={38} height={35} src="/img/icons/full-star.svg" alt="" />
-                                    <Image width={38} height={35} src="/img/icons/full-star.svg" alt="" />
-                                    <Image width={38} height={35} src="/img/icons/full-star.svg" alt="" />
-                                    <Image width={38} height={35} src="/img/icons/full-star.svg" alt="" />
-                                    <Typography fontSize={6} >122К.</Typography>
-                                </Stack>
-                            </Stack>
-                            <Typography fontSize={5}>
-                                {availableCount ?
-                                    <>
-                                        В наличии: <Typography fontSize={5} color='blue'>в {availableCount} магазинах</Typography>
-                                    </> :
-                                    <>
-                                        Товара нет в наличии
-                                    </>
-                                }
-                            </Typography>
+                        )
+                    })}
+                    <Typography fontSize={3}>
+                        <Link href={`/products/${breadCrumps.lastCategory?.category_id}`}>
+                            {" > " + breadCrumps.lastCategory?.name}
+                        </Link>
+                    </Typography>
+                    <Typography fontWeight="bold" fontSize={4}>
+                        {" > " + product.data.name}
+                    </Typography>
+                </pre>
+            </Stack>
 
-                            <Stack gap={1} flex="stretch-all">
-                                {/* <Stack alignItems='center'
-                                    justifyContent='center' gap={1} backgroundColor='standard'
-                                    paddingY={1} paddingX={3} style={{
-                                        borderRadius: "10px",
-                                        cursor: "pointer",
-                                        border: "1px solid rgb(19 54 116 / 55%)",
-                                        color: "#133674",
-                                        padding: "20px 14px"
-                                    }}>
-                                    <Typography fontSize={5} fontWeight="bold" >Купить</Typography>
-                                    <img width={20} height={20} src="/img/icons/cart.svg" alt="" />
-                                </Stack> */}
-                                <Button paddingX={1} paddingY={4} size={3}>
-                                    <div>Купить</div>
-                                    <CartIcon/>
-                                </Button>
-                                <Button paddingX={1} paddingY={4} size={3}>
-                                    <div>Добавить в избранное</div>
-                                    <HeartIcon/>
-                                </Button>
-                            </Stack>
-                        </Stack>
-                        <Stack marginTop={3}>
-                            <Typography fontSize={6} fontWeight="medium">Похожие товары</Typography>
-                        </Stack>
-                        <Slider style={{ height: "100%" }} className="bottomside__products" slidesPerView={1} >
-                            {products.data?.map(item => {
-                                return (
-                                    <Card padding={2}>
-                                        <Link style={{ height: "100%" }} href={`/product/${item.product_id}`} className="products__item item">
-                                            <Stack alignItems="center" style={{ height: "100%" }} gap={2}>
-                                                <div className="item__img">
-                                                    <img style={{
-                                                        height: 150,
-                                                        width: 150,
-                                                        objectFit: "contain"
-                                                    }} src={item?.file?.link} alt="" />
-                                                </div>
-                                                <Stack flexDirection="column" gap={2}>
-                                                    <Typography fontSize={5}>
-                                                        {item.name}
-                                                    </Typography>
-                                                    <Stack gap={1}>
-                                                        <Typography fontSize={5}>{item.price.toLocaleString()} ₽</Typography>
-                                                        <Stack gap={1} className="info__stars">
-                                                            <Image width={25} height={25} src="/img/icons/full-star.svg" alt="" />
-                                                            <Image width={25} height={25} src="/img/icons/full-star.svg" alt="" />
-                                                            <Image width={25} height={25} src="/img/icons/full-star.svg" alt="" />
-                                                            <Image width={25} height={25} src="/img/icons/full-star.svg" alt="" />
-                                                            <Image width={25} height={25} src="/img/icons/full-star.svg" alt="" />
-                                                        </Stack>
-                                                    </Stack>
-                                                </Stack>
-                                                <Stack gap={1} flexDirection="column">
-                                                    <Stack
-                                                        padding={1}
-                                                        backgroundColor="primary"
-                                                        style={{
-                                                            borderRadius: 7
-                                                        }}>
-                                                        <img style={{ width: 15, height: 15, minWidth: 15, minHeight: 15 }} src="/img/icons/white-cart.svg" alt="" />
-                                                    </Stack>
-                                                    <Stack
-                                                        padding={1}
-                                                        backgroundColor="primary"
-                                                        style={{
-                                                            borderRadius: 7
-                                                        }}>
-                                                        <img style={{ width: 15, height: 15, minWidth: 15, minHeight: 15 }} src="/img/icons/white-heart.svg" alt="" />
-                                                    </Stack>
-                                                </Stack>
-                                            </Stack>
-                                        </Link>
-                                    </Card>
-                                )
-                            })}
-                        </Slider>
-                    </Stack>
+            {/* @ts-expect-error Async Server Component */}
+            <ProductPreview product={product.data} />
 
-                </Stack>
-
-            </Card>
-
-            <Stack gap={2}>
-                <Stack flexDirection="column" gap={2}
-                    style={{ flex: "0 0 25%" }}
-                >
+            <Grid columns="1-4" gap={2}>
+                <Stack flexDirection="column" gap={2}>
                     <Card >
                         <Stack flexDirection="column" gap={4}>
                             <Typography>Товар</Typography>
@@ -328,7 +211,7 @@ export default async function Product({ params }: Props) {
                         </Stack>
                     </Card>
                 </Stack>
-            </Stack>
+            </Grid>
 
 
 

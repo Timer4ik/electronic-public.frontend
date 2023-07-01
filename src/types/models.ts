@@ -1,4 +1,4 @@
-export interface ReponseData<T> {
+export interface ResponseData<T> {
     data: T
     message: string
     count: number
