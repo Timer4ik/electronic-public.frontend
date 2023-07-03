@@ -2,14 +2,24 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+Проект electronic представляет из себя несколько частей
+- Сайт [https://github.com/Timer4ik/electronic-ssr.frontend](electronic-ssr.frontend) next js + typescript + redux tookit 
+- Админ [https://github.com/Timer4ik/electronic-admin](electronic-admin.frontend) панель для добавления контента на сайт react js + typescript + redux tookit,rtk query
+- Бэкэнд [https://github.com/Timer4ik/electronic.backend](electronic.backend) написанный на node js + express + sequelizу (postgresSQL)
+
+Проект electronic-ssr.frontend представляет из себя магазин электроники, которые включает в себя
+следующие модули
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+
+- Список категорий и неограниченно вложенных категорий
+- Список товаров для каждой категории с собственными фильтрами зависящими от категорий
+- Карточку товара с отзывами и характеристиками специфичными для каждого товара отдельной категории
+- Корзину, избранное и просмотр заказов
+- Авторизацию в системе как покупатель
+- Просмотр магазинов
+
+
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
