@@ -2,7 +2,7 @@
 
 Проект electronic представляет из себя несколько частей
 - Сайт [electronic-ssr.frontend](https://github.com/Timer4ik/electronic-ssr.frontend) next js + typescript + redux tookit 
-- Админ [electronic-admin.frontend](https://github.com/Timer4ik/electronic-admin) панель для добавления контента на сайт react js + typescript + redux tookit,rtk query
+- Админ панель [electronic-admin.frontend](https://github.com/Timer4ik/electronic-admin) для добавления контента на сайт react js + typescript + redux tookit,rtk query
 - Бэкэнд [electronic.backend](https://github.com/Timer4ik/electronic.backend) написанный на node js + express + sequelizу (postgresSQL)
 
 Проект electronic-ssr.frontend представляет из себя магазин электроники, которые включает в себя
@@ -22,7 +22,7 @@
 
 ## Как запустить проект
 
-Для начала необходимо создать в postgreSQL бд electronic и загрузить туда дамб базы данных, которых находится в проекте [electronic.backend](https://github.com/Timer4ik/electronic.backend)
+Для начала необходимо создать в postgreSQL бд electronic и загрузить туда дамб базы данных, который находится в проекте [electronic.backend](https://github.com/Timer4ik/electronic.backend)
 
 После нужно сконфигурировать бэк в файле db.js под свою базу
 
