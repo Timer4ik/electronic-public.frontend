@@ -37,8 +37,12 @@ export const cartSlice = createSlice({
     name: 'cart',
     initialState: initialState,
     reducers: {
-        initCart:(state) =>{
+        initCart: (state) => {
             state.cartItems = getCartItems()
+        },
+        clearCart: (state) => {
+            state.cartItems = []
+            setJsonCart([])
         },
         addItemToCart: (state, action: PayloadAction<number>) => {
             let cart: ICartItem[] = []
@@ -93,6 +97,6 @@ export const cartSlice = createSlice({
     },
 })
 
-export const { addItemToCart,initCart, decrementCartItemAmount, deleteItemFromCart, incrementCartItemAmount } = cartSlice.actions
+export const { addItemToCart, initCart, clearCart, decrementCartItemAmount, deleteItemFromCart, incrementCartItemAmount } = cartSlice.actions
 
 export default cartSlice.reducer

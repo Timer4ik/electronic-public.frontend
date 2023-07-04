@@ -13,9 +13,10 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     paddingY?: 1 | 2 | 3 | 4 | 5
     paddingX?: 1 | 2 | 3 | 4 | 5 | 6
     gap?: 1 | 2 | 3 | 4 | 5
+    active?: boolean
 }
 
-export const Button: FC<Props> = ({ padding, gap, paddingY, paddingX, children, fontWeight, size, color, ...props }) => {
+export const Button: FC<Props> = ({ padding, gap, active, paddingY, paddingX, children, fontWeight, size, color, ...props }) => {
 
     const gapStyle = gap ? " button-gap-" + gap : " button-gap-1"
     const sizeStyle = size ? " button-size-" + size : " button-size-1"
@@ -24,9 +25,10 @@ export const Button: FC<Props> = ({ padding, gap, paddingY, paddingX, children, 
     const paddingStyle = padding ? " button-padding-" + padding : ""
     const paddingYStyle = paddingY ? " button-paddingY-" + paddingY : ""
     const paddingXStyle = paddingX ? " button-paddingX-" + paddingX : ""
+    const activeStyle = active ? " button-active" : ""
 
     return (
-        <button type={props.type || "button"} className={'button' + paddingStyle + gapStyle + paddingXStyle + paddingYStyle + colorStyle + sizeStyle + fontWeightStyle}  {...props} >
+        <button type={props.type || "button"} className={'button' + activeStyle + paddingStyle + gapStyle + paddingXStyle + paddingYStyle + colorStyle + sizeStyle + fontWeightStyle}  {...props} >
             {children}
         </button>
     )

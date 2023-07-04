@@ -18,7 +18,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
     flex?: "same-all" | "stretch-all"
 }
 
-export const Stack: FC<Props> = ({ children, className, style, flex, alignItems, paddingX, padding, paddingY, backgroundColor, flexDirection, gap, marginX, marginY, marginBottom, justifyContent, marginTop }) => {
+export const Stack: FC<Props> = ({ children, className, style, flex, alignItems, paddingX, padding, paddingY, backgroundColor, flexDirection, gap, marginX, marginY, marginBottom, justifyContent, marginTop,...props }) => {
 
     const flexStyle = flex !== undefined ? " stack-flex-" + flex : ""
     const gapStyle = gap ? " stack-gap-" + gap : ""
@@ -36,7 +36,7 @@ export const Stack: FC<Props> = ({ children, className, style, flex, alignItems,
     const backgroundColorStyle = backgroundColor ? " stack-bg-" + backgroundColor : ""
 
     return (
-        <div style={style} className={(className || "") + ' stack' + flexStyle + paddingYStyle + paddingXStyle + backgroundColorStyle + paddingStyle + alignItemsStyle + justifyContentStyle + flexDirectionStyle + gapStyle + marginXStyle + marginYStyle + marginBottomStyle + marginTopStyle}>
+        <div style={style} className={(className || "") + ' stack' + flexStyle + paddingYStyle + paddingXStyle + backgroundColorStyle + paddingStyle + alignItemsStyle + justifyContentStyle + flexDirectionStyle + gapStyle + marginXStyle + marginYStyle + marginBottomStyle + marginTopStyle} {...props}>
             {children}
         </div>
     )

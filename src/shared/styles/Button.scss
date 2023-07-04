@@ -129,6 +129,15 @@
             color: white;
         }
     }
+    &-color-standard .button-active {
+        path {
+            transition: all 0.1s linear;
+            fill: white;
+        }
+        border: 1px solid rgba(19, 54, 116, 0.55);
+        background-color: #133674;
+        color: white;
+    }
     &-color-light-standard {
         border: 1px solid rgb(19 54 116 / 10%);
         color: #133674;
@@ -146,6 +155,15 @@
             background-color: #133674;
             color: white;
         }
+    }
+    &-color-light-standard.button-active {
+        path {
+            transition: all 0.1s linear;
+            fill: white;
+        }
+        border: 1px solid rgba(19, 54, 116, 0.55);
+        background-color: #133674;
+        color: white;
     }
     &-color-primary {
         background-color: #133674;
@@ -165,6 +183,15 @@
             background-color: transparent;
             color: #133674;
         }
+    }
+    &-color-primary.button-active {
+        path {
+            transition: all 0.1s linear;
+            fill: #133674;
+        }
+        border: 1px solid #133674;
+        background-color: transparent;
+        color: #133674;
     }
     &-padding-1 {
         padding: 10px;

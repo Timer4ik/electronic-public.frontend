@@ -1,4 +1,4 @@
-import { ICategory, ICategoryProperty, IDeveloper, IProduct, IShop, ISlider, ResponseData } from "@/types/models"
+import { GetMethod, ICategory, ICategoryProperty, IDeveloper, IProduct, IShop, ISlider, IOrder, PaymentMethod, ResponseData, IOrderProduct } from "@/types/models"
 import axios, { AxiosRequestConfig } from "axios"
 
 export const appApi = () => {
@@ -7,8 +7,9 @@ export const appApi = () => {
 
     const baseFetch = <T>(url: string, options: AxiosRequestConfig<any>) => {
         return axios.request<T>({
+            ...options,
             url: API_URL + url,
-            params: options.params
+            params: options.params,
         })
     }
 
@@ -19,7 +20,7 @@ export const appApi = () => {
         getCategories(options: AxiosRequestConfig<any> = {}) {
             return baseFetch<ResponseData<ICategory[]>>(`/api/categories`, options)
         },
-        getCategoryById(id:number, options: AxiosRequestConfig<any> = {}) {
+        getCategoryById(id: number, options: AxiosRequestConfig<any> = {}) {
             return baseFetch<ResponseData<ICategory>>(`/api/categories/${id}`, options)
         },
         getProducts(options: AxiosRequestConfig<any> = {}) {
@@ -36,6 +37,25 @@ export const appApi = () => {
         },
         getShops(options: AxiosRequestConfig<any> = {}) {
             return baseFetch<ResponseData<IShop[]>>(`/api/shops`, options)
-        }
+        },
+        getPaymentMethod(options: AxiosRequestConfig<any> = {}) {
+            return baseFetch<ResponseData<PaymentMethod[]>>(`/api/payment-methods`, options)
+        },
+        getReceiveMethod(options: AxiosRequestConfig<any> = {}) {
+            return baseFetch<ResponseData<GetMethod[]>>(`/api/get-methods`, options)
+        },
+        getOrder(options: AxiosRequestConfig<any> = {}) {
+            return baseFetch<ResponseData<IOrder[]>>(`/api/orders`, options)
+        },
+        createOrder(body: Omit<IOrder, "order_id">, options: AxiosRequestConfig<any> = {}) {
+            options.method = "POST"
+            options.data = body
+            return baseFetch<ResponseData<IOrder>>(`/api/orders`, options)
+        },
+        createOrderProduct(body: Omit<IOrderProduct, "order_product_id">, options: AxiosRequestConfig<any> = {}) {
+            options.method = "POST"
+            options.data = body
+            return baseFetch<ResponseData<IOrder[]>>(`/api/order-products`, options)
+        },
     }
 }

@@ -1,10 +1,13 @@
 'use client'
 import { ProductCartRow } from '@/components/Product/ProductCartRow/ProductCartRow'
+import { fetchReceiveMethods } from '@/hooks/use-get-method'
+import { addOrderProduct, createOrder } from '@/hooks/use-order'
+import { fetchPaymentMethods } from '@/hooks/use-payment-method'
 import { fetchProducts } from '@/hooks/use-products'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import { deleteItemFromFavourite } from '@/redux/slices/favouriteSlice'
-import { Button, Card, Checkbox, Container, Grid, Stack, Typography } from '@/shared'
-import { IProduct, ResponseData } from '@/types/models'
+import { clearCart, deleteItemFromCart } from '@/redux/slices/cartSlice'
+import { Button, Card, Checkbox, Container, Field, Grid, Select, Stack, Typography } from '@/shared'
+import { GetMethod, IProduct, PaymentMethod, ResponseData } from '@/types/models'
 import React, { useEffect, useMemo, useState } from 'react'
 
 interface IProductWithSelection extends IProduct {
@@ -17,19 +20,36 @@ const CartPage = () => {
     const [selectAll, setSelectAll] = useState(false)
     const [orderByAsc, setOrderByAsc] = useState(true)
 
-
     const { cartItems } = useAppSelector(state => state.cart)
 
-    const [products, setProducts] = useState<ResponseData<IProductWithSelection[]>>()
+    const [products, setProducts] = useState<ResponseData<IProductWithSelection[]> | null>()
+
+    const [phone, setPhone] = useState("")
+    const [email, setEmail] = useState("")
+
+    const [receiveMethods, setReceiveMethods] = useState<GetMethod[]>()
+    const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>()
+
+    const [activeReceiveMethod, setActiveReceiveMethod] = useState<GetMethod>()
+    const [activePaymentMethod, setActivePaymentMethod] = useState<PaymentMethod>()
+
+    const { user_id } = useAppSelector(state => state.auth)
+
 
     useEffect(() => {
         (async () => {
+
+            let _receiveMethods = await fetchReceiveMethods({})
+            let _paymentMethods = await fetchPaymentMethods({})
+
             let prods = await fetchProducts({
                 params: {
                     extend: "file",
                     "filter[product_id]": cartItems?.map(item => item.id)
                 }
             })
+            setReceiveMethods(_receiveMethods.data)
+            setPaymentMethods(_paymentMethods.data)
             setProducts(prods)
         })()
     }, [cartItems])
@@ -70,7 +90,7 @@ const CartPage = () => {
                 count: products?.count || 0,
                 message: products?.message || "",
                 data: products?.data.filter(product => {
-                    dispatch(deleteItemFromFavourite(product.product_id))
+                    dispatch(deleteItemFromCart(product.product_id))
                     return !product.isSelected
                 }) || []
             }
@@ -92,6 +112,40 @@ const CartPage = () => {
 
     }, [orderByAsc, products, selectAll])
 
+    const handleOrderCreate = async () => {
+
+        if (!user_id) return
+
+        let selectedProducts = products?.data.filter(item => item.isSelected)
+
+        if (!selectedProducts?.length){
+            return 
+        }
+
+        const order = await createOrder({
+            address: "123",
+            email: "123",
+            get_method_id: activeReceiveMethod?.get_method_id || 0,
+            payment_method_id: activePaymentMethod?.payment_method_id || 0,
+            phone,
+            status_id: 1,
+            user_id: user_id
+        })
+       
+
+        for (let i = 0; i < selectedProducts.length; i++) {
+            await addOrderProduct({
+                amount: 1,
+                order_id:order.data.order_id,
+                product_id:selectedProducts[i].product_id,
+            })
+
+        }
+
+        dispatch(clearCart())
+        setProducts(null)
+    }
+
     return (
         <Container>
             <Stack flexDirection='column' gap={1}>
@@ -99,7 +153,7 @@ const CartPage = () => {
                     <Typography color='primary' fontSize={8} fontWeight='bold'>Корзина</Typography>
                     <Typography fontSize={2} fontWeight='bold'>{cartItems?.length} товаров</Typography>
                 </Stack>
-                {cartItems?.length ? <Grid columns='5-7' gap={1} >
+                {cartItems?.length ? <Grid columns='2-3' gap={1} >
                     <Stack flexDirection='column' gap={2}>
                         <Card noPadding>
                             <Stack padding={2} flexDirection='column' gap={2}>
@@ -129,27 +183,70 @@ const CartPage = () => {
                     <Stack flexDirection='column' gap={2}>
                         <Card noPadding>
                             <Stack padding={5} paddingX={3} flexDirection='column' gap={3}>
-                                <Typography fontSize={6} fontWeight='bold'>Условия заказа</Typography>
+                                <Typography fontSize={7} fontWeight='bold'>Условия заказа</Typography>
+
                                 <Checkbox label='Получить со склада' />
-                                {!!products?.data.filter(item => item.isSelected).length &&
-                                    <Stack flexDirection='column'>
-                                        <Typography color='gray' fontSize={2}>Итого:</Typography>
-                                        <Stack justifyContent='space-between'>
-                                            <Typography fontSize={5} fontWeight='bold'>{products?.data.filter(item => item.isSelected).length} товаров</Typography>
-                                            <Typography fontSize={5} fontWeight='bold'>{products?.data.reduce((acc, prod) => {
-                                                if (prod.isSelected) {
-                                                    return prod.price + acc
-                                                }
-                                                return acc
-                                            }, 0).toLocaleString()} ₽</Typography>
-                                        </Stack>
-                                    </Stack>}
-                                {products?.data.filter(item => item.isSelected).length
+
+                                {orderedProducts?.filter(item => item.isSelected).length
                                     ?
-                                    <Button color='light-standard' fontWeight='regular' size={2}>Перейти к оформлению</Button>
+                                    <Stack flexDirection='column' gap={3}>
+                                        <Stack flexDirection='column'>
+                                            <Typography color='gray' fontSize={2}>Итого:</Typography>
+                                            <Stack justifyContent='space-between'>
+                                                <Typography fontSize={5} fontWeight='bold'>{products?.data.filter(item => item.isSelected).length} товаров</Typography>
+                                                <Typography fontSize={5} fontWeight='bold'>{products?.data.reduce((acc, prod) => {
+                                                    if (prod.isSelected) {
+                                                        return prod.price + acc
+                                                    }
+                                                    return acc
+                                                }, 0).toLocaleString()} ₽</Typography>
+                                            </Stack>
+                                        </Stack>
+                                        <Typography fontSize={7} fontWeight='bold'>Оформление заказа</Typography>
+                                        <Stack gap={4} flexDirection='column'>
+                                            <Stack flexDirection='column' gap={2}>
+                                                <Typography fontSize={4}>Номер телефона*</Typography>
+                                                <Field value={phone} onChange={(e) => setPhone(e.target.value)} />
+                                            </Stack>
+                                            <Stack flexDirection='column' gap={2}>
+                                                <Typography fontSize={4}>E-mail</Typography>
+                                                <Field />
+                                            </Stack>
+                                            <Stack gap={3} flexDirection='column'>
+                                                <Stack flexDirection='column' gap={2}>
+                                                    <Typography fontSize={4}>Выберите способ получения*</Typography>
+                                                    <Stack gap={3} flex='same-all'>
+                                                        {receiveMethods?.map(method => {
+                                                            return <Button
+                                                                onClick={() => setActiveReceiveMethod(method)}
+                                                                active={method.get_method_id === activeReceiveMethod?.get_method_id} color='light-standard'>
+                                                                {method.name}
+                                                            </Button>
+                                                        })}
+                                                    </Stack>
+                                                </Stack>
+                                                <Stack flexDirection='column' gap={2}>
+                                                    <Typography fontSize={4}>Выберите способ оплаты*</Typography>
+                                                    <Stack gap={3} flex='same-all'>
+                                                        {paymentMethods?.map(method => {
+                                                            return <Button
+                                                                onClick={() => setActivePaymentMethod(method)}
+                                                                active={method.payment_method_id === activePaymentMethod?.payment_method_id} color='light-standard'>
+                                                                {method.name}
+                                                            </Button>
+                                                        })}
+                                                    </Stack>
+                                                </Stack>
+                                            </Stack>
+                                        </Stack>
+                                        {!!activePaymentMethod && !!activeReceiveMethod && !!phone && <Stack>
+                                            <Button onClick={handleOrderCreate} size={2} fontWeight='medium' color='standard'>Оформить заказ</Button>
+                                        </Stack>}
+                                    </Stack>
                                     :
                                     <Typography fontSize={4} fontWeight='medium'>Выберите товары для покупки</Typography>
                                 }
+
                             </Stack>
                         </Card>
                     </Stack>

@@ -28,7 +28,7 @@ export const ProductRow: FC<Props> = ({ product }) => {
         }}>
             <Grid gap={2} columns='1-5'>
                 <Stack>
-                    <img style={{ objectFit: "contain", width: 180, height: 180 }} src={product?.file?.link} alt="" />
+                    <img style={{ objectFit: "contain", maxWidth: 180, maxHeight: 180,width: "100%", height: "100%" }} src={product?.file?.link} alt="" />
                 </Stack>
                 <Stack flexDirection='column' gap={1} flex='stretch-all'>
                     <Grid gap={1} columns='5-7'>

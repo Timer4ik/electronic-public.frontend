@@ -13,10 +13,14 @@ interface LoginResponseData {
 
 export interface LoaderState {
     isAuth: boolean
+    user_id: number | null
+    token:string | null
 }
 
 const initialState: LoaderState = {
     isAuth: false,
+    user_id: null,
+    token:null
 }
 
 export const login = createAsyncThunk<LoginResponseData, { email: string, password: string }>(
@@ -76,24 +80,33 @@ export const authSlice = createSlice({
         logout: (state) => {
             localStorage.removeItem("token")
             state.isAuth = false
+            state.token = null
         },
     },
     extraReducers: {
         [checkIsLogin.fulfilled.type]: (state, action: PayloadAction<LoginResponseData>) => {
             localStorage.setItem("token", JSON.stringify(action.payload.token))
+            state.user_id = action.payload.user.user_id
             state.isAuth = true
+            state.token = action.payload.token
         },
         [checkIsLogin.rejected.type]: (state, action: PayloadAction<LoginResponseData>) => {
             localStorage.removeItem("token")
             state.isAuth = false
+            state.user_id = null
+            state.token = null
         },
         [login.fulfilled.type]: (state, action: PayloadAction<LoginResponseData>) => {
             localStorage.setItem("token", JSON.stringify(action.payload.token))
+            state.user_id = action.payload.user.user_id
             state.isAuth = true
+            state.token = action.payload.token
         },
         [login.rejected.type]: (state) => {
             localStorage.removeItem("token")
             state.isAuth = false
+            state.user_id = null
+            state.token = null
         },
         // [login.pending.type]: (state, action: PayloadAction<LoginResponseData>){
         //     state.isAuth = true

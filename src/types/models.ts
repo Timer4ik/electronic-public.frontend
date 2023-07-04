@@ -4,22 +4,6 @@ export interface ResponseData<T> {
     count: number
 }
 
-// const ShopProduct = db.define("shop_product", {
-//     shop_product: { type: DataTypes.INTEGER, allowNull: false, primaryKey: true, autoIncrement: true },
-//     product_id: { type: DataTypes.INTEGER, allowNull: false },
-//     shop_id: { type: DataTypes.INTEGER, allowNull: false },
-//     is_active: { type: DataTypes.BOOLEAN, defaultValue: false },
-//     is_sold: { type: DataTypes.BOOLEAN, defaultValue: false },
-// })
-
-// const Shop = db.define("shop", {
-//     shop_id: { type: DataTypes.INTEGER, allowNull: false, primaryKey: true, autoIncrement: true },
-//     file_id: { type: DataTypes.INTEGER, allowNull: true },
-//     address: { type: DataTypes.STRING, allowNull: false },
-//     cords: { type: DataTypes.STRING, allowNull: false },
-//     openFrom: { type: DataTypes.STRING, allowNull: false },
-//     openTo: { type: DataTypes.STRING, allowNull: false },
-// })
 
 export interface IShopProduct {
     shop_product: number
@@ -146,7 +130,43 @@ export interface IShop {
     cords: string
     openFrom: string
     openTo: string
-    is_active:boolean
+    is_active: boolean
 
     file?: IFile
+}
+
+export interface PaymentMethod {
+    payment_method_id: number
+    name: string
+}
+
+export interface GetMethod {
+    get_method_id: number
+    name: string
+}
+
+export interface IOrderProduct {
+    order_product_id:number
+    order_id:number
+    product_id:number
+    amount:number
+
+    product?:IProduct
+}
+
+
+export interface IOrder {
+    order_id: number
+    user_id: number
+    status_id: number
+    phone: string
+    address: string
+    payment_method_id: number
+    get_method_id: number
+    email: string
+
+    payment_method?:PaymentMethod
+    get_method?:GetMethod
+    createdAt?:string
+    order_products?: IOrderProduct[]
 }
