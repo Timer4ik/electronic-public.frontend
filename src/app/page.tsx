@@ -1,15 +1,14 @@
-import { Aside } from "@/components/Aside/Aside";
-import { CategoryCard } from "@/components/CategoryCard/CategoryCard";
-import { DeveloperSlider } from "@/components/DevelopersSlider/DeveloperSlider";
-import { ProductCardSlider } from "@/components/Product/ProductCard/ProductCardSlider";
-import { PromotionProductSlider } from "@/components/Product/PromotionProduct/PromotionProductSlider";
-import { PromotionSlider } from "@/components/PromotionSlider/PromotionSlider";
-import { ShopLocation } from "@/components/ShopLocation/ShopLocation";
-import { fetchCategories } from "@/hooks/use-categories";
-import { fetchDevelopers } from "@/hooks/use-developers";
-import { fetchProducts } from "@/hooks/use-products";
-import { fetchSliders } from "@/hooks/use-slider";
-import { Container, Grid, Stack, Typography } from "@/shared";
+import { CategoryCard } from "@/entities/Category";
+import { Aside } from "@/entities/Layout";
+import { PromotionSlider } from "@/entities/Promotion/ui/PromotionSlider";
+import { ShopMap } from "@/entities/Shop";
+import { fetchCategories } from "@/shared/hooks/use-categories";
+import { fetchDevelopers } from "@/shared/hooks/use-developers";
+import { fetchProducts } from "@/shared/hooks/use-products";
+import { fetchSliders } from "@/shared/hooks/use-slider";
+import { Container, Grid, Stack, Typography } from "@/shared/ui";
+import { DeveloperSlider } from "@/widgets/Developer";
+import { ProductCardSlider, PromotionProductSlider } from "@/widgets/Product";
 import Link from "next/link";
 
 export default async function Main() {
@@ -80,7 +79,7 @@ export default async function Main() {
           </Grid>
         </Stack>
 
-        <ShopLocation />
+        <ShopMap />
 
         <Stack flexDirection='column' gap={3}>
           <Typography fontSize={6} color="gray" fontWeight='bold'>Недавно просмотренные товары</Typography>

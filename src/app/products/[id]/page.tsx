@@ -1,13 +1,13 @@
 "use client"
-import { ProductRow } from '@/components/Product/ProductRow/ProductRow'
-import { fetchCategoryBreadCrumps } from '@/hooks/use-categories'
-import { fetchCategoryProperties } from '@/hooks/use-category-properties'
-import { fetchProducts } from '@/hooks/use-products'
-import { Card, Checkbox, Field, Grid, Stack, Typography } from '@/shared'
-import useDebouncedValue from '@/shared/hooks/useDebounce'
-import { ICategory, ICategoryProperty, IProduct, ResponseData } from '@/types/models'
+import { fetchCategoryBreadCrumps } from '@/shared/hooks/use-categories'
+import { fetchCategoryProperties } from '@/shared/hooks/use-category-properties'
+import { fetchProducts } from '@/shared/hooks/use-products'
+import { Card, Checkbox, Field, Grid, Stack, Typography } from '@/shared/ui'
+import { ICategory, ICategoryProperty, IProduct, ResponseData } from '@/shared/types/models'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
+import useDebouncedValue from '@/shared/ui/hooks/useDebounce'
+import { ProductRow } from '@/entities/Product'
 
 interface Props {
   params: {

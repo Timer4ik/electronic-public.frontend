@@ -1,15 +1,15 @@
-import { Header } from '@/components/Header/Header'
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
 import "swiper/css/grid";
 
-import "../styles/style.scss"
-import "../shared/styles/index.scss"
+import "../shared/ui/styles/index.scss"
+// import "../shared/styles/index.scss"
 
-import Providers from '@/redux/provider';
 import Script from 'next/script';
+import { Header } from "@/entities/Layout";
+import Providers from "@/shared/redux/provider";
 
 export const metadata = {
   title: 'Create Next App',

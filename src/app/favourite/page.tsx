@@ -1,12 +1,12 @@
 'use client'
-import { ProductCartRow } from '@/components/Product/ProductCartRow/ProductCartRow'
-import { ProductFavouriteRow } from '@/components/Product/ProductFavouriteRow/ProductFavouriteRow'
-import { fetchProducts } from '@/hooks/use-products'
-import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import { deleteItemFromFavourite } from '@/redux/slices/favouriteSlice'
-import { Button, Card, Checkbox, Container, Grid, Stack, Typography } from '@/shared'
-import { IProduct, ResponseData } from '@/types/models'
+import { fetchProducts } from '@/shared/hooks/use-products'
+import { Button, Card, Checkbox, Container, Grid, Stack, Typography } from '@/shared/ui'
+import { IProduct, ResponseData } from '@/shared/types/models'
 import React, { useEffect, useMemo, useState } from 'react'
+import { useAppDispatch, useAppSelector } from '@/shared/redux/hooks'
+import { deleteItemFromFavourite } from '@/shared/redux/slices/favouriteSlice'
+import { ProductCheckboxRow } from '@/entities/Product'
+import { ProductRowBuyButton, ProductRowLikeButton } from '@/features/Product'
 
 interface IProductWithSelection extends IProduct {
     isSelected?: boolean
@@ -124,7 +124,11 @@ const FavouritePage = () => {
                         </Card>
                         <Stack flexDirection='column' gap={2}>
                             {orderedProducts?.map(product =>
-                                <ProductFavouriteRow key={product.product_id} toggleSelected={toggleSelected} product={product} />)}
+                                <ProductCheckboxRow key={product.product_id} toggleSelected={toggleSelected} product={product} >
+                                    <ProductRowBuyButton product_id={product.product_id}/>
+                                    <ProductRowLikeButton product_id={product.product_id}/>
+                                </ProductCheckboxRow>
+                            )}
                         </Stack>
                     </Stack>
                 </Grid> :

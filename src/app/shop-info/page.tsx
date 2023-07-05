@@ -1,10 +1,10 @@
-import { ShopLocation } from "@/components/ShopLocation/ShopLocation";
-import { Container } from "@/shared";
+import { ShopMap } from "@/entities/Shop";
+import { Container } from "@/shared/ui";
 
 export default function ShopInfo() {
     return (
         <Container>
-            <ShopLocation />
+            <ShopMap />
         </Container>
     )
 }

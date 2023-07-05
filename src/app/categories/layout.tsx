@@ -1,6 +1,5 @@
-import { Aside } from '@/components/Aside/Aside'
 
-import { Container, Stack } from '@/shared'
+import { Container, Stack } from '@/shared/ui'
 
 export const metadata = {
     title: 'Create Next App',

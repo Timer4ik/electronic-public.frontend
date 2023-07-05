@@ -1,14 +1,15 @@
 'use client'
-import { ProductCartRow } from '@/components/Product/ProductCartRow/ProductCartRow'
-import { fetchReceiveMethods } from '@/hooks/use-get-method'
-import { addOrderProduct, createOrder } from '@/hooks/use-order'
-import { fetchPaymentMethods } from '@/hooks/use-payment-method'
-import { fetchProducts } from '@/hooks/use-products'
-import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import { clearCart, deleteItemFromCart } from '@/redux/slices/cartSlice'
-import { Button, Card, Checkbox, Container, Field, Grid, Select, Stack, Typography } from '@/shared'
-import { GetMethod, IProduct, PaymentMethod, ResponseData } from '@/types/models'
+import { fetchReceiveMethods } from '@/shared/hooks/use-get-method'
+import { addOrderProduct, createOrder } from '@/shared/hooks/use-order'
+import { fetchPaymentMethods } from '@/shared/hooks/use-payment-method'
+import { fetchProducts } from '@/shared/hooks/use-products'
+import { Button, Card, Checkbox, Container, Field, Grid, Select, Stack, Typography } from '@/shared/ui'
+import { GetMethod, IProduct, PaymentMethod, ResponseData } from '@/shared/types/models'
 import React, { useEffect, useMemo, useState } from 'react'
+import { useAppDispatch, useAppSelector } from '@/shared/redux/hooks'
+import { clearCart, clearCartItems, deleteItemFromCart } from '@/shared/redux/slices/cartSlice'
+import { ProductCheckboxRow } from '@/entities/Product/ui/ProductCheckboxRow'
+import { ProductRowBuyButton, ProductRowLikeButton } from '@/features/Product'
 
 interface IProductWithSelection extends IProduct {
     isSelected?: boolean
@@ -22,7 +23,11 @@ const CartPage = () => {
 
     const { cartItems } = useAppSelector(state => state.cart)
 
-    const [products, setProducts] = useState<ResponseData<IProductWithSelection[]> | null>()
+    const [products, setProducts] = useState<ResponseData<IProductWithSelection[]> | null>({
+        count: 0,
+        data: [],
+        message: ""
+    })
 
     const [phone, setPhone] = useState("")
     const [email, setEmail] = useState("")
@@ -117,9 +122,9 @@ const CartPage = () => {
         if (!user_id) return
 
         let selectedProducts = products?.data.filter(item => item.isSelected)
-
-        if (!selectedProducts?.length){
-            return 
+        
+        if (!selectedProducts?.length) {
+            return
         }
 
         const order = await createOrder({
@@ -131,19 +136,25 @@ const CartPage = () => {
             status_id: 1,
             user_id: user_id
         })
-       
+
 
         for (let i = 0; i < selectedProducts.length; i++) {
             await addOrderProduct({
                 amount: 1,
-                order_id:order.data.order_id,
-                product_id:selectedProducts[i].product_id,
+                order_id: order.data.order_id,
+                product_id: selectedProducts[i].product_id,
             })
 
         }
 
-        dispatch(clearCart())
-        setProducts(null)
+        dispatch(clearCartItems(selectedProducts.map(i => i.product_id)))
+
+        // setProducts({
+        //     count: products?.count || 0,
+        //     message: products?.message || "",
+        //     data: products?.data.filter(item => !item.isSelected) || []
+        // })
+
     }
 
     return (
@@ -177,7 +188,12 @@ const CartPage = () => {
                             </Stack>
                         </Card>
                         <Stack flexDirection='column' gap={2}>
-                            {orderedProducts?.map(product => <ProductCartRow key={product.product_id} toggleSelected={toggleSelected} product={product} />)}
+                            {orderedProducts?.map(product =>
+                                <ProductCheckboxRow key={product.product_id} toggleSelected={toggleSelected} product={product} >
+                                    <ProductRowBuyButton product_id={product.product_id} />
+                                    <ProductRowLikeButton product_id={product.product_id} />
+                                </ProductCheckboxRow>
+                            )}
                         </Stack>
                     </Stack>
                     <Stack flexDirection='column' gap={2}>

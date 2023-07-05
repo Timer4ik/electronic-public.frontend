@@ -1,11 +1,7 @@
-import { CartIcon } from "@/components/Icons/CartIcon";
-import { HeartIcon } from "@/components/Icons/HeartIcon";
-import { ProductPreview } from "@/components/Product/ProductPreview/ProductPreview";
-import { fetchCategoryBreadCrumps } from "@/hooks/use-categories";
-import { fetchCategoryProperties } from "@/hooks/use-category-properties";
-import { fetchProductById, fetchProducts } from "@/hooks/use-products";
-import { Button, Card, Grid, Stack, Typography } from "@/shared";
-import { Slider } from "@/shared/Slider/Slider";
+import { ProductPreview } from "@/entities/Product";
+import { fetchCategoryBreadCrumps } from "@/shared/hooks/use-categories";
+import { fetchProductById } from "@/shared/hooks/use-products";
+import { Card, Grid, Stack, Typography } from "@/shared/ui";
 import Image from "next/image";
 import Link from "next/link";
 

@@ -1,6 +1,6 @@
 "use client"
-import { Container, Stack, Typography } from "@/shared";
-import { Button } from "@/shared/Button/Button";
+import { Container, Stack, Typography } from "@/shared/ui";
+import { Button } from "@/shared/ui";
 import Link from "next/link";
 
 

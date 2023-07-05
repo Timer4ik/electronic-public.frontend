@@ -1,6 +1,6 @@
-import { CategoryCard } from "@/components/CategoryCard/CategoryCard";
-import { fetchCategories, fetchCategoryBreadCrumps, fetchCategoryById } from "@/hooks/use-categories";
-import { Container, Grid, Stack, Typography } from "@/shared";
+import { CategoryCard } from "@/entities/Category/ui/CategoryCard";
+import { fetchCategories, fetchCategoryBreadCrumps, fetchCategoryById } from "@/shared/hooks/use-categories";
+import { Container, Grid, Stack, Typography } from "@/shared/ui";
 import Link from "next/link";
 
 interface Props {

@@ -1,17 +1,11 @@
 'use client'
-import { ProductCardSlider } from '@/components/Product/ProductCard/ProductCardSlider'
-import { ProductCartRow } from '@/components/Product/ProductCartRow/ProductCartRow'
-import { ProductFavouriteRow } from '@/components/Product/ProductFavouriteRow/ProductFavouriteRow'
-import { ProductPreview } from '@/components/Product/ProductPreview/ProductPreview'
-import { ProductRow } from '@/components/Product/ProductRow/ProductRow'
-import { fetchOrders } from '@/hooks/use-order'
-import { fetchProducts } from '@/hooks/use-products'
-import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import { deleteItemFromFavourite } from '@/redux/slices/favouriteSlice'
-import { Button, Card, Checkbox, Container, Field, Grid, Stack, Textarea, Typography } from '@/shared'
-import { Slider } from '@/shared/Slider/Slider'
-import { IOrder, IProduct, ResponseData } from '@/types/models'
+import { fetchOrders } from '@/shared/hooks/use-order'
+import { fetchProducts } from '@/shared/hooks/use-products'
+import { Button, Card, Checkbox, Container, Field, Grid, Stack, Textarea, Typography,Slider } from '@/shared/ui'
+import { IOrder, IProduct, ResponseData } from '@/shared/types/models'
 import React, { useEffect, useMemo, useState } from 'react'
+import { useAppDispatch, useAppSelector } from '@/shared/redux/hooks'
+import { ProductRow } from '@/entities/Product'
 
 interface IProductWithSelection extends IProduct {
     isSelected?: boolean
