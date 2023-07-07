@@ -129,7 +129,7 @@
             color: white;
         }
     }
-    &-color-standard .button-active {
+    &-color-standard.button-active {
         path {
             transition: all 0.1s linear;
             fill: white;

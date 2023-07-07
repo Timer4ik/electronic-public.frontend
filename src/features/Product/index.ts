@@ -5,3 +5,4 @@ export {ProductCardBuyButton} from "./ui/ProductCard/ProductCardBuyButton"
 export {ProductCardLikeButton} from "./ui/ProductCard/ProductCardLikeButton"
 
 export { ProductPreviewButtons } from "./ui/ProductPreview/ProductPreviewButtons"
+export { StarInput } from "./ui/StarInput/StarInput"

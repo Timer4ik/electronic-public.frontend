@@ -71,7 +71,7 @@ export default function Products({ params }: Props) {
         "filter[is_active]": true,
         "filter[category_id]": params?.id,
         "like": debouncedValue,
-        extend: "file,shop_products",
+        extend: "file,shop_products,product_reviews",
         property_value_id: selectedPropertyValues
       }
     })

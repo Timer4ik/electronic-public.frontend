@@ -4,7 +4,7 @@ import { IProduct } from '@/shared/types/models'
 import Image from 'next/image'
 import React, { FC } from 'react'
 import { ProductRow } from './ProductRow'
-import { ProductPreviewButtons } from '@/features/Product'
+import { ProductPreviewButtons, StarInput } from '@/features/Product'
 
 
 interface Props {
@@ -54,12 +54,10 @@ export const ProductPreview = async ({ product }: Props) => {
                                 {product?.price.toLocaleString()} ₽
                             </Typography>
                             <Stack gap={1} alignItems="center">
-                                <Image width={38} height={35} src="/img/icons/full-star.svg" alt="" />
-                                <Image width={38} height={35} src="/img/icons/full-star.svg" alt="" />
-                                <Image width={38} height={35} src="/img/icons/full-star.svg" alt="" />
-                                <Image width={38} height={35} src="/img/icons/full-star.svg" alt="" />
-                                <Image width={38} height={35} src="/img/icons/full-star.svg" alt="" />
-                                <Typography fontSize={6} >122К.</Typography>
+                                <StarInput disabled value={product?.product_reviews?.length ? Math.round(product?.product_reviews?.reduce((_acc, item) => {
+                                    return _acc + item.stars
+                                }, 0) / product?.product_reviews?.length) : 0} />
+                                <Typography fontSize={6} >{product?.product_reviews?.length || 0}</Typography>
                             </Stack>
                         </Stack>
                         <Typography fontSize={5}>

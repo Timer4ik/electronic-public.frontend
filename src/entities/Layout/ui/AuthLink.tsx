@@ -1,6 +1,6 @@
 'use client'
 import { useAppDispatch, useAppSelector } from '@/shared/redux/hooks'
-import { login } from '@/shared/redux/slices/authSlice'
+import { login, logout } from '@/shared/redux/slices/authSlice'
 import { Button, Card, Checkbox, Dropdown, Field, Modal, Stack, Typography } from '@/shared/ui'
 import { UserIcon } from '@/shared/ui/Icons/UserIcon'
 import Link from 'next/link'
@@ -12,16 +12,31 @@ export const AuthLink = () => {
     const dispatch = useAppDispatch()
 
     const [email, setEmail] = useState("")
+    const [name, setName] = useState("")
     const [password, setPassword] = useState("")
     const { isAuth } = useAppSelector(state => state.auth)
 
-    const handleLogin = () => {
+    const [tab, setTab] = useState(0)
+    const handleLogin = async () => {
         dispatch(login({
             email,
             password
         }))
 
         setIsShow(false)
+    }
+    const handleRegister = async () => {
+        await fetch(`http://localhost:5000/api/auth/register`, {
+            body: JSON.stringify({
+                email, password,name
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "POST"
+        })
+
+        await handleLogin()
     }
 
     return (
@@ -41,7 +56,7 @@ export const AuthLink = () => {
                             <Typography>
                                 <Link href={"/orders"}>Заказы</Link>
                             </Typography>
-                            <Typography>Выйти из системы</Typography>
+                            <Typography onClick={() => dispatch(logout())}>Выйти из системы</Typography>
                         </div>
                     </Dropdown>
                     :
@@ -56,27 +71,66 @@ export const AuthLink = () => {
                     <Card padding={5} style={{
                         width: 600,
                     }}>
-                        <Typography fontSize={7}>
-                            <Stack flexDirection='column' gap={5}>
-                                <Typography fontSize={7} fontWeight='bold'>Вход или Регистрация</Typography>
-                                <Field
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    label='Введите e-mail' placeholder='Email' />
-                                <Field
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    label='Введите пароль' placeholder='Пароль' />
-                                <Stack justifyContent='space-between'>
-                                    <Checkbox label='Запомнить меня?' />
-                                    <Button
-                                        onClick={handleLogin}
-                                        size={2} paddingX={6} color='primary'>
-                                        Войти
-                                    </Button>
+                        {tab == 0 &&
+                            <Typography fontSize={7}>
+                                <Stack flexDirection='column' gap={3}>
+                                    <Typography fontSize={7} fontWeight='bold'>Вход или Регистрация</Typography>
+                                    <Field
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        label='Введите e-mail' placeholder='Email' />
+                                    <Field
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        label='Введите пароль' placeholder='Пароль' />
+                                    <Stack justifyContent='space-between'>
+                                        <Checkbox label='Запомнить меня?' />
+                                        <Button
+                                            onClick={handleLogin}
+                                            size={2} paddingX={6} color='primary'>
+                                            Войти
+                                        </Button>
+                                    </Stack>
                                 </Stack>
-                            </Stack>
-                        </Typography>
+                                <Typography
+                                    onClick={() => setTab(1)} color='gray'>
+                                    Зарегистрироваться
+                                </Typography>
+                            </Typography>
+                        }
+                        {tab == 1 &&
+                            <Typography fontSize={7}>
+                                <Stack flexDirection='column' gap={3}>
+                                    <Typography fontSize={7} fontWeight='bold'>Вход или Регистрация</Typography>
+                                    <Field
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                        label='Введите имя пользователя' placeholder='Имя пользователя' />
+                                    <Field
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        label='Введите e-mail' placeholder='Email' />
+                                    <Field
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        label='Введите пароль' placeholder='Пароль' />
+                                    <Stack justifyContent='space-between'>
+                                        <Checkbox label='Запомнить меня?' />
+                                        <Button
+                                            onClick={handleRegister}
+                                            size={2} paddingX={6} color='primary'>
+                                            Регистрация
+                                        </Button>
+                                    </Stack>
+                                </Stack>
+                                <Typography
+                                    onClick={() => setTab(0)} color='gray'>
+                                    Вход
+                                </Typography>
+                            </Typography>
+                        }
+
+
                     </Card>
                 </Modal>
             </div>

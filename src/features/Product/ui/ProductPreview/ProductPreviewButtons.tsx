@@ -20,21 +20,21 @@ export const ProductPreviewButtons: FC<Props> = ({ product_id }) => {
     return (
         <Stack gap={1} flex="stretch-all">
             {!cartItems?.find(item => item.id == product_id) ?
-                <Button onClick={() => dispatch(addItemToCart(product_id))} paddingX={1} paddingY={4} size={3}>
+                <Button onClick={() => dispatch(addItemToCart(product_id))} color='primary' active paddingX={1} paddingY={4} size={3}>
                     <div>Купить</div>
                     <CartIcon />
                 </Button> :
-                <Button onClick={() => dispatch(deleteItemFromCart(product_id))} color='primary' paddingX={1} paddingY={4} size={3}>
+                <Button active onClick={() => dispatch(deleteItemFromCart(product_id))} paddingX={1} paddingY={4} size={3}>
                     <div>В корзине</div>
                     <CartIcon />
                 </Button>
             }
             {!favouriteItems?.find(item => item.id == product_id) ?
-                <Button onClick={() => dispatch(addItemToFavourite(product_id))} paddingX={1} paddingY={4} size={3}>
+                <Button onClick={() => dispatch(addItemToFavourite(product_id))} color='primary' active paddingX={1} paddingY={4} size={3}>
                     <div>Добавить в избранное</div>
                     <HeartIcon />
                 </Button> :
-                <Button onClick={() => dispatch(deleteItemFromFavourite(product_id))} color='primary' paddingX={1} paddingY={4} size={3}>
+                <Button active onClick={() => dispatch(deleteItemFromFavourite(product_id))} paddingX={1} paddingY={4} size={3}>
                     <div>В избранном</div>
                     <HeartIcon />
                 </Button>

@@ -85,7 +85,7 @@ export const ProductCheckboxRow: FC<Props> = ({ product, toggleSelected, childre
                             <Image width={18} height={16} src="/img/icons/full-star.svg" alt="" />
                             <Image width={18} height={16} src="/img/icons/full-star.svg" alt="" />
                             <Image width={18} height={16} src="/img/icons/full-star.svg" alt="" />
-                            <Typography fontSize={4} >122к</Typography>
+                            <Typography fontSize={4} >{product?.product_reviews?.length || 0}</Typography>
                         </Stack>
                     </Stack>
                     <Stack alignItems='flex-end' justifyContent='space-between' gap={2}>

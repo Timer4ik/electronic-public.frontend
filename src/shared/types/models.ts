@@ -83,6 +83,8 @@ export interface IProduct {
     shop_products?: IShopProduct[]
     product_photos?: IProductPhoto[]
     product_property_values?: IProductPropertyValue[]
+
+    product_reviews?:IProductReview[]
 }
 
 export interface IProductPhoto {
@@ -177,4 +179,8 @@ export interface IProductReview {
     product_id:number
     comment: string
     stars: number
+    createdAt?:string
+    user?:{
+        name:string,
+    }
 }

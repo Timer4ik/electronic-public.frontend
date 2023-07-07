@@ -9,6 +9,7 @@ import { addItemToCart, deleteItemFromCart } from '@/shared/redux/slices/cartSli
 import { addItemToFavourite, deleteItemFromFavourite } from '@/shared/redux/slices/favouriteSlice'
 import { HeartIcon } from '@/shared/ui/Icons/HeartIcon'
 import { IProduct } from '@/shared/types/models'
+import { StarInput } from '@/features/Product'
 
 interface Props {
     product: IProduct
@@ -52,25 +53,23 @@ export const PromotionProduct: FC<Props> = ({ product }) => {
                         <Stack gap={1} alignItems="center" justifyContent="space-between">
                             <Typography fontSize={4} fontWeight="bold">{product.price.toLocaleString()} ₽</Typography>
                             <Stack gap={1} className="info__stars">
-                                <img width={15} height={15} src="/img/icons/full-star.svg" alt="" />
-                                <img width={15} height={15} src="/img/icons/full-star.svg" alt="" />
-                                <img width={15} height={15} src="/img/icons/full-star.svg" alt="" />
-                                <img width={15} height={15} src="/img/icons/full-star.svg" alt="" />
-                                <img width={15} height={15} src="/img/icons/full-star.svg" alt="" />
+                                <StarInput padding={2} height={20} width={20} disabled value={product?.product_reviews?.length ? Math.round(product?.product_reviews?.reduce((_acc, item) => {
+                                    return _acc + item.stars
+                                }, 0) / product?.product_reviews?.length) : 0} />
                             </Stack>
                             {!cartItems?.find(item => item.id == product.product_id) ?
-                                <Button onClick={() => dispatch(addItemToCart(product.product_id))} color="light-standard" padding={1} size={1}>
+                                <Button onClick={() => dispatch(addItemToCart(product.product_id))} active color="primary" padding={1} size={1}>
                                     <CartIcon width={16} height={16} />
                                 </Button> :
-                                <Button onClick={() => dispatch(deleteItemFromCart(product.product_id))} color="primary" padding={1} size={1}>
+                                <Button onClick={() => dispatch(deleteItemFromCart(product.product_id))} active padding={1} size={1}>
                                     <CartIcon width={16} height={16} />
                                 </Button>
                             }
                             {!favouriteItems?.find(item => item.id == product.product_id) ?
-                                <Button onClick={() => dispatch(addItemToFavourite(product.product_id))} color="light-standard" padding={1} size={1}>
+                                <Button onClick={() => dispatch(addItemToFavourite(product.product_id))} active color="primary" padding={1} size={1}>
                                     <HeartIcon width={16} height={16} />
                                 </Button> :
-                                <Button onClick={() => dispatch(deleteItemFromFavourite(product.product_id))} color="primary" padding={1} size={1}>
+                                <Button onClick={() => dispatch(deleteItemFromFavourite(product.product_id))} active padding={1} size={1}>
                                     <HeartIcon width={16} height={16} />
                                 </Button>
                             }

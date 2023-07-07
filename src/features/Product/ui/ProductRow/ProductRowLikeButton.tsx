@@ -22,7 +22,7 @@ export const ProductRowLikeButton:FC<Props> = ({product_id}) => {
             <HeartIcon width={16} height={16} />
         </Button>
         :
-        <Button onClick={() => dispatch(deleteItemFromFavourite(product_id))} color='primary' size={1} padding={2} paddingY={1} fontWeight='medium'>
+        <Button active onClick={() => dispatch(deleteItemFromFavourite(product_id))} color='primary' size={1} padding={2} paddingY={1} fontWeight='medium'>
             <HeartIcon width={16} height={16} />
         </Button>
 }

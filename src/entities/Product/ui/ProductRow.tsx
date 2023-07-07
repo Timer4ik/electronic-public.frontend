@@ -4,6 +4,7 @@ import { IProduct } from '@/shared/types/models'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { FC, ReactNode } from 'react'
+import { StarInput } from '@/features/Product'
 
 interface Props {
     children?: ReactNode
@@ -62,12 +63,10 @@ export const ProductRow: FC<Props> = ({ product, children }) => {
                                 border: "1px solid rgb(19 54 116 / 10%)",
                             }}
                         >
-                            <Image width={18} height={16} src="/img/icons/full-star.svg" alt="" />
-                            <Image width={18} height={16} src="/img/icons/full-star.svg" alt="" />
-                            <Image width={18} height={16} src="/img/icons/full-star.svg" alt="" />
-                            <Image width={18} height={16} src="/img/icons/full-star.svg" alt="" />
-                            <Image width={18} height={16} src="/img/icons/full-star.svg" alt="" />
-                            <Typography fontSize={4} >122к</Typography>
+                            <StarInput padding={1} height={20} width={20} disabled value={product?.product_reviews?.length ? Math.round(product?.product_reviews?.reduce((_acc, item) => {
+                                    return _acc + item.stars
+                                }, 0) / product?.product_reviews?.length) : 0}/>
+                            <Typography fontSize={4} >{product?.product_reviews?.length || 0}</Typography>
                         </Stack>
                     </Stack>
                     <Stack alignItems='flex-end' justifyContent='space-between' gap={2}>

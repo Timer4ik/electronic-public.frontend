@@ -100,10 +100,10 @@
     &-row {
         &.stack-gap-0 {
             >* {
-                margin-right: 0;
+                margin-right: 5px;
             }
             >*:last-child {
-                margin-right: 0;
+                margin-right: 0px;
             }
         }
         &.stack-gap-1 {

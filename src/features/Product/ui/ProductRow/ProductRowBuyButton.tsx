@@ -20,7 +20,7 @@ export const ProductRowBuyButton: FC<Props> = ({ product_id }) => {
             <CartIcon width={16} height={16} />
         </Button>
         :
-        <Button onClick={() => dispatch(deleteItemFromCart(product_id))} color='primary' size={1} padding={4} paddingY={1} fontWeight='medium'>
+        <Button active onClick={() => dispatch(deleteItemFromCart(product_id))} color='primary' size={1} padding={4} paddingY={1} fontWeight='medium'>
             <Typography fontSize={2} >В корзине</Typography>
             <CartIcon width={16} height={16} />
         </Button>

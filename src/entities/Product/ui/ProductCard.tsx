@@ -1,15 +1,16 @@
 'use client'
-import {  Card, Grid, Stack, Typography } from '@/shared/ui'
+import { Card, Grid, Stack, Typography } from '@/shared/ui'
 import { IProduct } from '@/shared/types/models'
 import Link from 'next/link'
 import React, { FC, ReactNode } from 'react'
+import { StarInput } from '@/features/Product'
 
 interface Props {
     product: IProduct
     children?: ReactNode
 }
 
-export const ProductCard: FC<Props> = ({ product,children }) => {
+export const ProductCard: FC<Props> = ({ product, children }) => {
 
     return (
         <Card padding={3} style={{ height: 500 }}>
@@ -31,11 +32,9 @@ export const ProductCard: FC<Props> = ({ product,children }) => {
                     </Grid>
                     <Stack justifyContent="space-between" alignItems="center">
                         <Stack>
-                            <img width={20} height={20} src="/img/icons/full-star.svg" alt="" />
-                            <img width={20} height={20} src="/img/icons/full-star.svg" alt="" />
-                            <img width={20} height={20} src="/img/icons/full-star.svg" alt="" />
-                            <img width={20} height={20} src="/img/icons/full-star.svg" alt="" />
-                            <img width={20} height={20} src="/img/icons/empty-star.svg" alt="" />
+                            <StarInput padding={0} height={20} width={20} disabled value={product?.product_reviews?.length ? Math.round(product?.product_reviews?.reduce((_acc, item) => {
+                                return _acc + item.stars
+                            }, 0) / product?.product_reviews?.length) : 0} />
                         </Stack>
                         <Typography fontSize={1}>
                             Отзывов: 12к.

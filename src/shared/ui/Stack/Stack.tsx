@@ -4,7 +4,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
     className?: string
     children: React.ReactNode
     flexDirection?: "column" | "row"
-    gap?: 1 | 2 | 3 | 4 | 5
+    gap?: 0 | 1 | 2 | 3 | 4 | 5
     marginY?: 1 | 2 | 3 | 4 | 5
     marginX?: 1 | 2 | 3 | 4 | 5
     marginTop?: 1 | 2 | 3 | 4 | 5
@@ -21,7 +21,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 export const Stack: FC<Props> = ({ children, className, style, flex, alignItems, paddingX, padding, paddingY, backgroundColor, flexDirection, gap, marginX, marginY, marginBottom, justifyContent, marginTop,...props }) => {
 
     const flexStyle = flex !== undefined ? " stack-flex-" + flex : ""
-    const gapStyle = gap ? " stack-gap-" + gap : ""
+    const gapStyle = gap !== undefined ? " stack-gap-" + gap : ""
     const flexDirectionStyle = flexDirection ? " stack-" + flexDirection : " stack-row"
     const marginXStyle = marginX ? " stack-marginX-" + marginX : ""
     const marginYStyle = marginY ? " stack-marginY-" + marginY : ""

@@ -1,11 +1,15 @@
 'use client'
 import { fetchOrders } from '@/shared/hooks/use-order'
 import { fetchProducts } from '@/shared/hooks/use-products'
-import { Button, Card, Checkbox, Container, Field, Grid, Stack, Textarea, Typography,Slider } from '@/shared/ui'
+import { Button, Card, Checkbox, Container, Field, Grid, Stack, Textarea, Typography, Slider, Modal } from '@/shared/ui'
 import { IOrder, IProduct, ResponseData } from '@/shared/types/models'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/shared/redux/hooks'
 import { ProductRow } from '@/entities/Product'
+import { EmptyStarIcon, FullStarIcon } from '@/shared/ui/Icons/Star'
+import { StarInput } from '@/features/Product/ui/StarInput/StarInput'
+import { OrderReviewModal } from '@/widgets/Order'
+import { createReview } from '@/shared/hooks/use-review'
 
 interface IProductWithSelection extends IProduct {
     isSelected?: boolean
@@ -14,26 +18,54 @@ interface IProductWithSelection extends IProduct {
 const FavouritePage = () => {
 
     const dispatch = useAppDispatch()
-    const { token } = useAppSelector(state => state.auth)
+    const { token, user_id } = useAppSelector(state => state.auth)
 
     const [orders, setOrders] = useState<ResponseData<IOrder[]>>()
+
+    const fetchData = async () => {
+        let prods = await fetchOrders({
+            params: {
+                "filter[user_id]": user_id,
+                extend: "order_products.product.file,payment_method,get_method,order_products.product.product_reviews"
+            },
+            headers: {
+                Authorization: "Bearear " + token
+            }
+        })
+        setOrders(prods)
+    }
 
     useEffect(() => {
         if (!token) {
             return
         }
-        (async () => {
-            let prods = await fetchOrders({
-                params: {
-                    extend: "order_products.product.file,payment_method,get_method"
-                },
-                headers: {
-                    Authorization: "Bearear " + token
-                }
-            })
-            setOrders(prods)
-        })()
+        fetchData()
     }, [token])
+
+    const [reviewItem, setReviewItem] = useState<IProduct | null | undefined>(null)
+
+    const handleSubmit = async (values: {
+        orderText: string,
+        starCount: number
+    }) => {
+
+        if (!reviewItem || !user_id) return
+
+        await createReview({
+            comment: values.orderText,
+            product_id: reviewItem?.product_id,
+            stars: values.starCount,
+            user_id: user_id,
+        }, {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        })
+
+        setReviewItem(null)
+        fetchData()
+    }
+
 
     return (
         <Container>
@@ -70,7 +102,13 @@ const FavouritePage = () => {
                                                 <Slider slidesPerView={1} style={{ padding: 0 }} direction='horizontal'>
                                                     {order.order_products?.map(item => {
                                                         return !!item.product && (
-                                                            <ProductRow key={item.product_id} product={item.product} />
+                                                            <ProductRow key={item.product_id} product={item.product} >
+                                                                {item.product.product_reviews?.find(i => i.user_id == user_id) ?
+                                                                    <Button size={2} active>Отзыв оставлен</Button>
+                                                                    :
+                                                                    <Button size={2} onClick={() => setReviewItem(item.product)}>Оставить отзыв</Button>
+                                                                }
+                                                            </ProductRow>
                                                         )
                                                     })}
                                                 </Slider>}
@@ -85,6 +123,7 @@ const FavouritePage = () => {
                         <Typography fontSize={6} fontWeight='medium'>Заказы отсутствуют</Typography>
                     </Card>
                 }
+                <OrderReviewModal onOutsideClick={() => setReviewItem(null)} onSubmit={handleSubmit} product={reviewItem} />
             </Stack>
         </Container>
     )

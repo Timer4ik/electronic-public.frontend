@@ -23,7 +23,7 @@ export const ProductCardBuyButton: FC<Props> = ({ product_id }) => {
         </Button> :
         <Button
             onClick={() => dispatch(deleteItemFromCart(product_id))}
-            color='primary' paddingX={1} size={1}>
+             active paddingX={1} size={1}>
             <div>В корзине</div>
             <CartIcon width={15} height={15} />
         </Button>

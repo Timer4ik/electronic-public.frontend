@@ -1,4 +1,5 @@
 import { ProductPreview } from "@/entities/Product";
+import { StarInput } from "@/features/Product";
 import { fetchCategoryBreadCrumps } from "@/shared/hooks/use-categories";
 import { fetchProductById } from "@/shared/hooks/use-products";
 import { Card, Grid, Stack, Typography } from "@/shared/ui";
@@ -15,7 +16,7 @@ export default async function Product({ params }: Props) {
 
     const product = await fetchProductById(params?.id, {
         params: {
-            extend: "file,product_photos.file,shop_products,product_properties.property_value,product_properties.category_property.property",
+            extend: "product_reviews.user,file,product_photos.file,shop_products,product_properties.property_value,product_properties.category_property.property",
         }
     })
 
@@ -53,8 +54,8 @@ export default async function Product({ params }: Props) {
             {/* @ts-expect-error Async Server Component */}
             <ProductPreview product={product.data} />
 
-            <Grid columns="1-4" gap={2}>
-                <Stack flexDirection="column" gap={2}>
+            <Grid  gap={2}>
+                {/* <Stack flexDirection="column" gap={2}>
                     <Card >
                         <Stack flexDirection="column" gap={4}>
                             <Typography>Товар</Typography>
@@ -79,7 +80,7 @@ export default async function Product({ params }: Props) {
                             <Typography>Похожие товары</Typography>
                         </Stack>
                     </Card>
-                </Stack>
+                </Stack> */}
                 <Stack flexDirection="column" gap={2}>
                     <Card>
                         <Stack gap={1} flexDirection="column">
@@ -122,87 +123,36 @@ export default async function Product({ params }: Props) {
                         <Stack gap={5} flexDirection="column">
                             <Typography fontSize={7} fontWeight="bold">Отзывы покупателей</Typography>
                             <Stack flexDirection="column" gap={5}>
-                                <Stack gap={2}>
-                                    <img style={{
-                                        height: 60,
-                                        width: 60,
-                                        objectFit: "contain"
-                                    }} src="/img/icons/user.svg" alt="" />
-                                    <Stack flexDirection="column" gap={3}>
-                                        <Stack gap={4} alignItems="center">
-                                            <Typography fontSize={5} fontWeight="medium">
-                                                Любовник Аделя
-                                            </Typography>
-                                            <Typography fontSize={3}>
-                                                18 марта 2022
-                                            </Typography>
-                                        </Stack>
-                                        <Stack gap={1}>
-                                            <Image width={25} height={22} src="/img/icons/full-star.svg" alt="" />
-                                            <Image width={25} height={22} src="/img/icons/full-star.svg" alt="" />
-                                            <Image width={25} height={22} src="/img/icons/full-star.svg" alt="" />
-                                            <Image width={25} height={22} src="/img/icons/full-star.svg" alt="" />
-                                            <Image width={25} height={22} src="/img/icons/full-star.svg" alt="" />
-                                        </Stack>
-                                        <Typography>
-                                            Мне понравился этот компьютер, но были изъяны, мне привезли телефон вместо компьютера у которого не была турбинного ускорителя и ещё были тупые моменты, когда я не мог просто пользоваться с ним адекватно
-                                        </Typography>
-                                    </Stack>
-                                </Stack>
-                                <Stack gap={2}>
-                                    <img style={{
-                                        height: 60,
-                                        width: 60,
-                                        objectFit: "contain"
-                                    }} src="/img/icons/user.svg" alt="" />
-                                    <Stack flexDirection="column" gap={3}>
-                                        <Stack gap={4} alignItems="center">
-                                            <Typography fontSize={5} fontWeight="medium">
-                                                Любовник Аделя
-                                            </Typography>
-                                            <Typography fontSize={3}>
-                                                18 марта 2022
-                                            </Typography>
-                                        </Stack>
-                                        <Stack gap={1}>
-                                            <Image width={25} height={22} src="/img/icons/full-star.svg" alt="" />
-                                            <Image width={25} height={22} src="/img/icons/full-star.svg" alt="" />
-                                            <Image width={25} height={22} src="/img/icons/full-star.svg" alt="" />
-                                            <Image width={25} height={22} src="/img/icons/full-star.svg" alt="" />
-                                            <Image width={25} height={22} src="/img/icons/full-star.svg" alt="" />
-                                        </Stack>
-                                        <Typography>
-                                            Мне понравился этот компьютер, но были изъяны, мне привезли телефон вместо компьютера у которого не была турбинного ускорителя и ещё были тупые моменты, когда я не мог просто пользоваться с ним адекватно
-                                        </Typography>
-                                    </Stack>
-                                </Stack>
-                                <Stack gap={2}>
-                                    <img style={{
-                                        height: 60,
-                                        width: 60,
-                                        objectFit: "contain"
-                                    }} src="/img/icons/user.svg" alt="" />
-                                    <Stack flexDirection="column" gap={3}>
-                                        <Stack gap={4} alignItems="center">
-                                            <Typography fontSize={5} fontWeight="medium">
-                                                Любовник Аделя
-                                            </Typography>
-                                            <Typography fontSize={3}>
-                                                18 марта 2022
-                                            </Typography>
-                                        </Stack>
-                                        <Stack gap={1}>
-                                            <Image width={25} height={22} src="/img/icons/full-star.svg" alt="" />
-                                            <Image width={25} height={22} src="/img/icons/full-star.svg" alt="" />
-                                            <Image width={25} height={22} src="/img/icons/full-star.svg" alt="" />
-                                            <Image width={25} height={22} src="/img/icons/full-star.svg" alt="" />
-                                            <Image width={25} height={22} src="/img/icons/full-star.svg" alt="" />
-                                        </Stack>
-                                        <Typography>
-                                            Мне понравился этот компьютер, но были изъяны, мне привезли телефон вместо компьютера у которого не была турбинного ускорителя и ещё были тупые моменты, когда я не мог просто пользоваться с ним адекватно
-                                        </Typography>
-                                    </Stack>
-                                </Stack>
+                                {
+                                    product.data.product_reviews?.map(review => {
+                                        return (
+                                            <Stack gap={2}>
+                                                <img style={{
+                                                    height: 60,
+                                                    width: 60,
+                                                    objectFit: "contain"
+                                                }} src="/img/icons/user.svg" alt="" />
+                                                <Stack flexDirection="column" gap={2}>
+                                                    <Stack gap={3} alignItems="center">
+                                                        <Typography fontSize={5} fontWeight="medium">
+                                                            {review.user?.name}
+                                                        </Typography>
+                                                        <Typography fontSize={3}>
+                                                            {!!review?.createdAt && new Date(review?.createdAt).toLocaleDateString()}
+                                                        </Typography>
+                                                    </Stack>
+                                                    <StarInput width={16} height={20} disabled value={review.stars} />
+                                                    <Typography>
+                                                        {review.comment}
+                                                    </Typography>
+                                                </Stack>
+                                            </Stack>
+                                        )
+                                    })
+                                }
+
+
+
                             </Stack>
                         </Stack>
                     </Card>

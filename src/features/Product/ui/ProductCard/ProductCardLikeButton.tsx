@@ -18,5 +18,5 @@ export const ProductCardLikeButton: FC<Props> = ({ product_id }) => {
     return !favouriteItems?.find(item => item.id == product_id) ?
         <Button onClick={() => dispatch(addItemToFavourite(product_id))} color='light-standard' padding={2} size={1}><HeartIcon width={15} height={15} /></Button>
         :
-        <Button onClick={() => dispatch(deleteItemFromFavourite(product_id))} color='primary' padding={2} size={1}><HeartIcon width={15} height={15} /></Button>
+        <Button active onClick={() => dispatch(deleteItemFromFavourite(product_id))}  padding={2} size={1}><HeartIcon width={15} height={15} /></Button>
 }

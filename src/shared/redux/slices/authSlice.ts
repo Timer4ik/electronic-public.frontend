@@ -43,6 +43,7 @@ export const login = createAsyncThunk<LoginResponseData, { email: string, passwo
         return data
     }
 )
+
 export const checkIsLogin = createAsyncThunk<LoginResponseData, string>(
     'api/checkIsLogin',
     async (_, { rejectWithValue }) => {

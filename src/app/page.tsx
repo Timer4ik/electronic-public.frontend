@@ -16,7 +16,7 @@ export default async function Main() {
   const products = await fetchProducts({
     params: {
       limit: 10,
-      extend: "file",
+      extend: "file,product_reviews",
       "filter[is_active]": true
     }
   })
