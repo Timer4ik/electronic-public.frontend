@@ -32,5 +32,5 @@
 После нужно сконфигурировать бэк в файле db.js под свою базу
 
 После чего можно запустить проекты
-- Сайт [electronic-ssr.frontend](https://github.com/Timer4ik/electronic-ssr.frontend)
+- Сайт [electronic-public.frontend](https://github.com/Timer4ik/electronic-public.frontend)
 - Админ [electronic-admin.frontend](https://github.com/Timer4ik/electronic-admin)
